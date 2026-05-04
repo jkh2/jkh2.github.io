@@ -98,6 +98,39 @@
       margin-left: 0.75rem;
       vertical-align: middle;
     }
+    .migration-notice {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent-gold);
+      border-radius: var(--radius);
+      padding: 1.75rem 2rem;
+      margin-bottom: 2.5rem;
+    }
+    .migration-label {
+      display: inline-block;
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent-gold);
+      margin-bottom: 0.6rem;
+    }
+    .migration-notice p {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      margin-bottom: 1rem;
+      max-width: 680px;
+    }
+    .migration-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.8rem;
+      color: var(--accent-gold);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: gap 0.2s;
+    }
+    .migration-link:hover { gap: 0.7rem; }
   </style>
 </head>
 <body>
@@ -209,6 +242,13 @@
 
       <!-- Articles -->
       <div id="articles" class="pub-panel">
+
+        <div class="migration-notice">
+          <span class="migration-label">Migration in Progress</span>
+          <p>We're in the process of migrating all previously published articles and papers to this site. The full archive — including all 15 articles and white papers — is available now at our previous platform.</p>
+          <a href="https://usarust.wixsite.com/james-keith-harwood/publications" target="_blank" rel="noopener" class="migration-link">View Full Archive →</a>
+        </div>
+
         <div class="articles-list">
           <a href="#" class="article-item scroll-reveal">
             <span class="num">01</span>
