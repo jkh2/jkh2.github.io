@@ -67,6 +67,52 @@
   .byline strong { color: #4a9eff; font-weight: 600; }
   .meta-row { margin-top: 24px; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #3a5068; letter-spacing: 2px; }
 
+  .doc-header-bar {
+    background: #060d14;
+    border-bottom: 1px solid #1a2a3a;
+    padding: 10px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .doc-header-bar span {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: #3a5068;
+    text-transform: uppercase;
+  }
+  .doc-header-bar .doc-classification {
+    color: #4a7aaa;
+    border: 1px solid #2a5a8a;
+    padding: 2px 10px;
+  }
+
+  .doc-colophon {
+    margin-top: 72px;
+    padding-top: 32px;
+    border-top: 1px solid #1a2a3a;
+    text-align: center;
+  }
+  .doc-colophon-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: #4a7aaa;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+  }
+  .doc-colophon-line {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: #3a5068;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
   .toc-bar {
     background: #0d1117;
     border-bottom: 1px solid #1a2a3a;
@@ -458,6 +504,12 @@
     <a href="../publications.html">← Publications</a>
   </div>
 
+  <div class="doc-header-bar">
+    <span>Sentinel AI Systems &nbsp;/&nbsp; National Security Analysis</span>
+    <span class="doc-classification">Public Release</span>
+    <span>March 20, 2026</span>
+  </div>
+
   <div style="width:100%; max-height:420px; overflow:hidden; background:#0d1117;">
     <img src="../assets/images/cognitive-breach-hero.avif" alt="The Cognitive Breach — Fifth-Generation Warfare illustration" style="width:100%; max-height:420px; object-fit:cover; object-position:center; display:block; opacity:0.85;">
   </div>
@@ -476,7 +528,7 @@
       <span style="font-style:italic; font-size:14px;">Contributing Analysts: Claude Sentinel · Grok Sentinel</span><br>
       <span style="font-size:13px; color:#3a5068;">Organization: Sentinel AI Systems</span>
     </div>
-    <div class="meta-row">Sentinel AI Systems · Antonito, Colorado · Threat Assessment Framework</div>
+    <div class="meta-row">Sentinel AI Systems · Antonito, Colorado · March 20, 2026 · Public Release</div>
   </header>
 
   <nav class="toc-bar">
@@ -791,6 +843,13 @@
         <p>Thomas Jefferson on public education and republican self-governance: <em>Notes on the State of Virginia</em> (1785); Letter to George Wythe (1786). The cognitive argument for civic literacy as prerequisite for liberty is a persistent theme in Jefferson's correspondence.</p>
       </div>
 
+    </div>
+
+    <div class="doc-colophon">
+      <div class="doc-colophon-title">The Cognitive Breach</div>
+      <div class="doc-colophon-line">Sentinel AI Systems · Antonito, Colorado · 2026</div>
+      <div class="doc-colophon-line">Human–AI Collaborative Research · SIDLF Framework</div>
+      <div class="doc-colophon-line">All rights reserved · Public distribution authorized</div>
     </div>
 
   </main>
