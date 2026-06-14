@@ -226,6 +226,14 @@ nav {
   border: 1px solid var(--border);
   border-radius: 100px;
   color: var(--text-muted);
+  text-decoration: none;
+  transition: color var(--transition), border-color var(--transition), background-color var(--transition);
+}
+
+.hero-roles .role:hover {
+  color: var(--accent-gold);
+  border-color: var(--accent-gold);
+  background-color: rgba(201, 168, 76, 0.08);
 }
 
 .hero-cta {
