@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Harwood History | Harwood Enterprises</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .page-hero {
+      min-height: 50vh;
+      display: flex;
+      align-items: flex-end;
+      padding-top: 100px;
+      padding-bottom: 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .page-hero-bg {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 70% 60% at 50% 30%, rgba(201,168,76,0.07) 0%, transparent 70%);
+    }
+    .page-hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(201,168,76,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(201,168,76,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+    .hero-title {
+      font-family: var(--font-head);
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      position: relative;
+    }
+    .hero-sub {
+      font-size: 0.8rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent-gold);
+      margin-bottom: 1rem;
+    }
+    .stat-banner {
+      background: rgba(201,168,76,0.06);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem 3rem;
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    .stat-banner .stat-num {
+      font-family: var(--font-head);
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 700;
+      color: var(--accent-gold);
+    }
+    .stat-banner .stat-label {
+      font-size: 0.8rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-top: 0.25rem;
+    }
+    .stat-banner .stat-date {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 0.75rem;
+    }
+    .scripture-banner {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem 3rem;
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    .scripture-banner p {
+      font-family: var(--font-head);
+      font-style: italic;
+      font-size: 1.1rem;
+      color: var(--text);
+      line-height: 1.7;
+      margin-bottom: 0.5rem;
+    }
+    .scripture-banner cite {
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent-gold);
+    }
+    .history-section {
+      margin-bottom: 3rem;
+    }
+    .history-section h3 {
+      font-family: var(--font-head);
+      font-size: 1.6rem;
+      color: var(--accent-gold);
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .history-section p {
+      color: var(--text-muted);
+      line-height: 1.85;
+      margin-bottom: 1rem;
+    }
+    .history-section p:last-child { margin-bottom: 0; }
+    .arrival-list {
+      list-style: none;
+      padding: 0;
+    }
+    .arrival-list li {
+      padding: 0.6rem 0;
+      border-bottom: 1px solid rgba(201,168,76,0.08);
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      line-height: 1.6;
+      display: flex;
+      gap: 1rem;
+      align-items: baseline;
+    }
+    .arrival-list li:last-child { border-bottom: none; }
+    .arrival-year {
+      font-family: var(--font-head);
+      font-size: 0.85rem;
+      color: var(--accent-gold);
+      min-width: 50px;
+      flex-shrink: 0;
+    }
+    .notable-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem 2rem;
+      margin-bottom: 1rem;
+    }
+    .notable-card h4 {
+      font-family: var(--font-head);
+      font-size: 1.1rem;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+    }
+    .notable-card p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      line-height: 1.7;
+    }
+    .lineage-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.75rem 2rem;
+      margin-bottom: 1.25rem;
+    }
+    .lineage-card h4 {
+      font-family: var(--font-head);
+      font-size: 1.1rem;
+      color: var(--accent-gold);
+      margin-bottom: 0.75rem;
+    }
+    .lineage-card p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      line-height: 1.75;
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .back-link:hover { color: var(--accent-gold); }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">Harwood <span>Enterprises</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="portfolio.html">Portfolio</a></li>
+        <li><a href="team.html">Team</a></li>
+        <li><a href="history.html" class="active">History</a></li>
+        <li><a href="training.html">Training</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="../index.html" class="back-link">← JKH II</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section class="page-hero">
+    <div class="page-hero-bg"></div>
+    <div class="page-hero-grid"></div>
+    <div class="container" style="position:relative;">
+      <p class="hero-sub">Origins: England, Ireland, Scotland</p>
+      <h1 class="hero-title">Harwood History</h1>
+    </div>
+  </section>
+
+  <section style="padding-top: 3rem;">
+    <div class="container">
+
+      <div class="stat-banner">
+        <div class="stat-num">12,812</div>
+        <div class="stat-label">Global Harwood Family Members</div>
+        <div class="stat-date">As of August 16, 2023 — Let's make more!</div>
+      </div>
+
+      <div class="scripture-banner">
+        <p>"And God blessed them, and God said unto them, Be fruitful, and multiply, and replenish the earth, and subdue it: and have dominion over the fish of the sea, and over the fowl of the air, and over every living thing that moveth upon the earth."</p>
+        <cite>Genesis 1:28 — KJV</cite>
+      </div>
+
+      <div class="history-section">
+        <h3>Origins of the Name</h3>
+        <p>The name Harwood is part of the ancient legacy of the Anglo-Saxon tribes of Britain. It is a product of when the family lived in Lincolnshire. The name is derived from the Old English word <em>har</em> which means "grey" and the word <em>wudu</em> which means "wood."</p>
+        <p>"Prior to the latter half of the XIV century the name was written Harward and Hereward, and tradition derives the family from the celebrated Hereward, the patriot Saxon, who a few years after the Conquest headed his oppressed countrymen against the forces of William. He was the younger son of Leofric, earl of Mercia."</p>
+        <p>Hereward "fills a larger place in legend than in authentic history. A few references to him in the chronicles and an account of his possessions in Domesday are all that we really know of him. But his exploits in defending Ely from the Normans caused the generation succeeding his own to regard him as the popular hero of the English resistance to their French conquerors."</p>
+      </div>
+
+      <div class="history-section">
+        <h3>Early Origins</h3>
+        <p>The surname Harwood was first found in Lancashire at either Great Harwood or Little Harwood; and/or in West Yorkshire at Harewood — all villages.</p>
+        <p>An early record of the family was found in Cheshire in the twelfth century: Hubert de Harewda was listed there in 1176. Bernard de Harewode was listed in 1242 Fees and Alice Harewode was listed in the Subsidy Rolls of Somerset in 1327.</p>
+        <p>In Scotland, the name was likely from a local origin, "probably from Harwood near West Calder, Midlothian. Roger de Hauewod held land of Gouyrton near Edinburgh, 1317, and Ada, daughter of Roger de Harewood or Hauwod, is mentioned in Aberdeen in same year. The lands of Trowere in the earldom of Carrick were resigned by Janet de Hawod, 1430."</p>
+      </div>
+
+      <div class="history-section">
+        <h3>Notable Harwoods — Post 1700</h3>
+
+        <ul class="arrival-list">
+          <li><span class="arrival-year">1619</span><span>Paule Harwood, aged 20, arrived in Virginia aboard the ship "Bona Nova"</span></li>
+          <li><span class="arrival-year">1622</span><span>Thomas Harwood arrived in Virginia aboard the ship "Margaret &amp; John"</span></li>
+          <li><span class="arrival-year">1623</span><span>William Harwood landed in Virginia aboard the ship "Francis Bonaventure"</span></li>
+          <li><span class="arrival-year">1623</span><span>Mrs. Grace Harwood arrived in Virginia aboard the ship "George"</span></li>
+          <li><span class="arrival-year">1630</span><span>Mrs. Elizabeth Harwood sailed from Isle of Wright arriving in Salem, Massachusetts aboard the ship "Ambrose" as part of the Winthrop Fleet, found in Boston</span></li>
+          <li><span class="arrival-year">1700</span><span>Hannah Harwood arrived in Virginia</span></li>
+          <li><span class="arrival-year">1714</span><span>Anne Harwood arrived in Virginia</span></li>
+          <li><span class="arrival-year">1746</span><span>Phillis Harwood landed in Philadelphia, Pennsylvania</span></li>
+          <li><span class="arrival-year">1813</span><span>James Harwood, aged 25, landed in Maryland</span></li>
+          <li><span class="arrival-year">1833</span><span>William Harwood arrived in New York, NY</span></li>
+          <li><span class="arrival-year">1901</span><span>John J Harwood arrived in Mississippi</span></li>
+          <li><span class="arrival-year">1774</span><span>Thomas Harwood landed in Nova Scotia</span></li>
+          <li><span class="arrival-year">1783</span><span>Ms. Mary Harwood U.E. arrived at Port Roseway [Shelburne], Nova Scotia aboard the ship "HMS Clinton"</span></li>
+        </ul>
+      </div>
+
+      <div class="history-section">
+        <h3>Famous Harwoods — American Politics &amp; Public Service</h3>
+        <div class="notable-card">
+          <h4>Brown Harwood (March 8, 1872 – June 26, 1963)</h4>
+          <p>American realtor and public figure.</p>
+        </div>
+        <div class="notable-card">
+          <h4>Margaret Harwood (1885–1979)</h4>
+          <p>American astronomer specializing in photometry and the first director of the Maria Mitchell Observatory in Nantucket, Massachusetts. Eponym of asteroid 7040 Harwood.</p>
+        </div>
+        <div class="notable-card">
+          <h4>Commander Bruce L. Harwood USN (1910–1944)</h4>
+          <p>American naval officer, twice awarded the Navy Cross. Killed in action during the Battle of Leyte Gulf. Eponym of the USS Harwood (DD/DDE-861), a Gearing-class destroyer.</p>
+        </div>
+        <div class="notable-card">
+          <h4>Charles A. Harwood (1880–1950)</h4>
+          <p>American Democratic Party politician, Member of New York State Assembly from Kings County 10th District, 1910; U.S. District Judge for Canal Zone, 1937–38; Governor of U.S. Virgin Islands, 1941–46.</p>
+        </div>
+        <div class="notable-card">
+          <h4>Elvis Harwood</h4>
+          <p>American politician, Mayor of Joliet, Illinois, 1867–69.</p>
+        </div>
+        <div class="notable-card">
+          <h4>Charles E. Harwood (1851–1924)</h4>
+          <p>American Republican politician, Mayor of Lynn, Massachusetts, 1894–95.</p>
+        </div>
+      </div>
+
+      <div class="history-section">
+        <h3>Famous Harwoods — England</h3>
+        <div class="notable-card">
+          <h4>Commodore Henry Harwood (1888–1950)</h4>
+          <p>Commander of the South American Division of the British Navy; hero of the Battle of the River Plate in December 1939 — the first major naval battle of World War II. Harwood sailed in his cruiser the Ajax with two other cruisers to engage the German pocket battleship Graf Spee. Through superior tactics, the Graf Spee was forced into port at Montevideo, where her captain ultimately scuttled her. Harwood was promoted to Rear-Admiral.</p>
+        </div>
+        <div class="notable-card">
+          <h4>John Harwood (1893–1964)</h4>
+          <p>English horologist from Bolton, Durham. Invented the first automatic winding wristwatch, patented in 1924. A former World War I soldier, Harwood used the kinetic energy at the wrist of the wearer to wind the mainspring via an oscillating rotor — a revolutionary innovation now recognized as a classic of watch history. When the airship Count Zeppelin made its historic 21-day round-the-world trip in 1929, the Harwood watch was worn by American journalist Lady Drummond Hay, the only female aboard.</p>
+        </div>
+        <div class="notable-card">
+          <h4>Hereward the Wake</h4>
+          <p>Some Harwoods are descended from Leofric, the Anglo-Saxon Earl of Mercia in Lincolnshire, and his wife Lady Godiva. Their son Robertus Hereward — known as Hereward the Wake — led vigorous military opposition to William the Conqueror, making a desperate stand in 1071 on the Island of Ely. William later pardoned Hereward out of respect for his bravery and restored him to his estates. Hailed as a symbolic hero of English nationalism, Hereward was the subject of various legends that may have been incorporated into the Robin Hood legend.</p>
+        </div>
+      </div>
+
+      <div class="history-section">
+        <h3>British Harwood Lines Coming to America</h3>
+        <p style="margin-bottom:2rem;">Each Harwood immigrant line into America represents a snapshot of Harwood DNA coming down from the immigrant's time of departure and place of residence in the British Isles.</p>
+
+        <div class="lineage-card">
+          <h4>1. The Thurlby-Jamestown Line</h4>
+          <p>Immigrant: Gov. William Harwood (c. 1598 – aft. 1628). Sailed from England in August 1620 on the Francis Bonaventure to Jamestown, VA. Became chief of Martin's Hundred Colony, survived the Good Friday Indian Massacre of 1622, and founded the Charles City line of numerous Harwood descendants. His brother Capt. Thomas Harwood (c. 1603–c. 1652) sailed to VA in 1622 and founded the Warwick Co. Harwood line. Capt. Thomas's grandson William built the historic Harwood Plantation (now Endview) at Newport News in 1769.</p>
+        </div>
+        <div class="lineage-card">
+          <h4>2. The Devonshire-Boston Line</h4>
+          <p>Immigrant: Andrew Harwood (c. 1600 – aft. 1645). Immigrated from Dartmouth, Devonshire, to America around 1640. Made a freeman in Boston in 1643, lived there with his daughter Mrs. Thomas Finson, and died after 1645.</p>
+        </div>
+        <div class="lineage-card">
+          <h4>3. The Essex-Charlestown Line</h4>
+          <p>Immigrant: Henry Harwood, from Shenfield, Essex, England. Arrived in 1630 with wife Elizabeth to Salem and later Charlestown, Mass. A herdsman, he became a freeman in Mass. Bay Colony in 1630. Died in 1637 after extraordinary suffering in a storm.</p>
+        </div>
+        <div class="lineage-card">
+          <h4>4. The Surrey-Concord Line</h4>
+          <p>Immigrant: Nathaniel Harwood (1626–1716) and wife Elizabeth. Son of John Harwood of London, he and his three brothers immigrated to Boston probably before 1650. After 1665 Nathaniel and Elizabeth moved to Concord, Mass. Nathaniel made his living as a cordwainer and died in Concord in 1716 at age 90.</p>
+        </div>
+        <div class="lineage-card">
+          <h4>5. The Sussex-Ontario Line</h4>
+          <p>Immigrant: Henry Harwood, born 1813 in Lewes, Sussex, married Lucy Susan Coleman. Immigrated to Canada in 1834, raising their family of five sons and three daughters in East Zorra, Oxford County, Ontario.</p>
+        </div>
+        <div class="lineage-card">
+          <h4>6. The Bedfordshire-Maryland Line</h4>
+          <p>Immigrant: Richard Harwood, born 1670 in Streatley, Bedfordshire, England. Settled in Anne Arundel Co., MD. Married Mary Knighton 1692 in Anne Arundel Co. This line may have owned the splendid, historic Hammond-Harwood House in Annapolis, MD.</p>
+        </div>
+        <div class="lineage-card">
+          <h4>7. The Revolutionary War Line</h4>
+          <p>Revolutionary War soldier James Harward — born 1760 King and Queen Co., VA; died 1840 Wake Co., NC. Married (1) Rosanah Barbee 1781 and (2) Rachel Velvin 1828. His name was spelled variously as Harwood, Harrod, and Harward across historical records.</p>
+        </div>
+        <div class="lineage-card">
+          <h4>8. The Bedfordshire-Pennsylvania Line</h4>
+          <p>Immigrant: James Harrod, born c. 1668, Luton, Bedfordshire, England. Married Maria Kent, born c. 1670 in Oxford, Bedfordshire. Immigrated to America in 1714. His son Col. James Harrod (c. 1742–c. 1792) founded Harrodsburg (now Mercer Co.), KY — the first permanent English settlement west of the Allegheny Mountains, established at Fort Harrod in 1774.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <footer style="border-top:1px solid var(--border); padding:3rem 0; text-align:center;">
+    <div class="container">
+      <p style="font-family:var(--font-head); font-size:1.5rem; color:var(--text); letter-spacing:0.1em;">HARWOOD <span style="color:var(--accent-gold);">ENTERPRISES</span></p>
+      <p style="color:var(--text-muted); font-size:0.85rem; margin-top:0.75rem;">A family legacy platform &bull; Founded by James Keith Harwood II</p>
+      <p style="margin-top:1.5rem;">
+        <a href="../index.html" style="font-size:0.8rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--text-muted);">← James Keith Harwood II</a>
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    const toggle = document.querySelector('.nav-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    if (toggle) toggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+  </script>
+</body>
+</html>

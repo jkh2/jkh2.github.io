@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Harwood Enterprises — Flourishing Through the Generations</title>
+  <meta name="description" content="A platform for the Harwood family to network, collaborate, and build generational prosperity under the purpose of our Creator.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .he-hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      padding-top: 68px;
+    }
+    .he-hero-bg {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 40%, rgba(201,168,76,0.07) 0%, transparent 70%);
+    }
+    .he-hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(201,168,76,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(201,168,76,0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+    .he-crest {
+      font-family: var(--font-head);
+      font-size: clamp(3.5rem, 8vw, 7rem);
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      color: var(--text);
+      line-height: 1;
+      position: relative;
+    }
+    .he-crest span {
+      display: block;
+      font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+      font-weight: 400;
+      letter-spacing: 0.4em;
+      color: var(--accent-gold);
+      margin-top: 0.5rem;
+      text-transform: uppercase;
+    }
+    .he-tagline {
+      font-family: var(--font-head);
+      font-style: italic;
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      color: var(--text-muted);
+      max-width: 680px;
+      margin: 2.5rem auto 0;
+      line-height: 1.6;
+    }
+    .he-tagline em {
+      color: var(--accent-gold);
+      font-style: normal;
+    }
+    .he-divider {
+      width: 80px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
+      margin: 3rem auto;
+    }
+    .scripture-block {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2.5rem 3rem;
+      margin-bottom: 2rem;
+      position: relative;
+    }
+    .scripture-block::before {
+      content: '"';
+      font-family: var(--font-head);
+      font-size: 5rem;
+      color: var(--accent-gold);
+      opacity: 0.2;
+      position: absolute;
+      top: 0.25rem;
+      left: 1.5rem;
+      line-height: 1;
+    }
+    .scripture-text {
+      font-family: var(--font-head);
+      font-style: italic;
+      font-size: 1.15rem;
+      color: var(--text);
+      line-height: 1.7;
+      margin-bottom: 0.75rem;
+    }
+    .scripture-ref {
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent-gold);
+    }
+    .founder-sig {
+      font-family: var(--font-head);
+      font-style: italic;
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      margin-top: 1rem;
+    }
+    .founder-sig strong {
+      color: var(--text);
+      font-style: normal;
+    }
+    .vision-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+    .vision-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      transition: border-color var(--transition);
+    }
+    .vision-card:hover { border-color: var(--accent-gold); }
+    .vision-icon {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    .vision-card h4 {
+      font-family: var(--font-head);
+      font-size: 1.2rem;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+    }
+    .vision-card p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .back-link:hover { color: var(--accent-gold); }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">Harwood <span>Enterprises</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="portfolio.html">Portfolio</a></li>
+        <li><a href="team.html">Team</a></li>
+        <li><a href="history.html">History</a></li>
+        <li><a href="training.html">Training</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="../index.html" class="back-link">← JKH II</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="he-hero">
+    <div class="he-hero-bg"></div>
+    <div class="he-hero-grid"></div>
+    <div class="container" style="position:relative;">
+      <div class="he-crest">
+        HARWOOD
+        <span>Enterprises</span>
+      </div>
+      <div class="he-divider"></div>
+      <p class="he-tagline">
+        "Tenaciously striving to flourish in the human domain<br>
+        throughout the generations for the <em>supreme purpose of our Creator</em>"
+      </p>
+      <p style="margin-top:2rem; font-size:0.8rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--text-muted);">— Harwood</p>
+    </div>
+  </section>
+
+  <!-- Mission -->
+  <section id="mission">
+    <div class="container">
+      <span class="section-label">Our Purpose</span>
+      <h2 class="section-title">A Family United by Vision</h2>
+      <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start;" class="mission-grid">
+        <div>
+          <p style="color:var(--text-muted); margin-bottom:1.25rem; line-height:1.8;">
+            Welcome to Harwood Enterprises — a platform born from a deep-rooted vision to create a space where the ambitious and talented carriers of the Harwood name can network and collaborate.
+          </p>
+          <p style="color:var(--text-muted); margin-bottom:1.25rem; line-height:1.8;">
+            This idea began with a profound sense of purpose, guided by prayer and introspection, leading to the building of a community centered on innovation, collaboration, and striving for generational prosperity for the carriers of our family name.
+          </p>
+          <p style="color:var(--text-muted); line-height:1.8;">
+            Join us in our endeavor to thrive in the human domain together — through the generations, for the supreme purpose of our Creator.
+          </p>
+          <div style="margin-top:2rem;">
+            <p class="founder-sig">— <strong>James Keith Harwood II</strong><br>Founder</p>
+          </div>
+        </div>
+        <div>
+          <div class="vision-grid" style="grid-template-columns: 1fr;">
+            <div class="vision-card">
+              <div class="vision-icon">✦</div>
+              <h4>Network</h4>
+              <p>Connect Harwood family members across generations, disciplines, and geographies into a single collaborative body.</p>
+            </div>
+            <div class="vision-card">
+              <div class="vision-icon">✦</div>
+              <h4>Collaborate</h4>
+              <p>Pool talent, resources, and ambition. The family name is a covenant — not just an inheritance.</p>
+            </div>
+            <div class="vision-card">
+              <div class="vision-icon">✦</div>
+              <h4>Flourish</h4>
+              <p>Build something that outlasts any single generation. Prosperity rooted in purpose, not mere accumulation.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- Scripture Foundation -->
+  <section id="scripture">
+    <div class="container">
+      <span class="section-label">Foundation</span>
+      <h2 class="section-title">What We Stand On</h2>
+      <p class="section-subtitle">Every generation builds on what came before. We build on the Word.</p>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; max-width:860px;">
+        <div class="scripture-block">
+          <p class="scripture-text">
+            "You did not choose me, but I chose you and appointed you that you should go and bear fruit and that your fruit should abide, so that whatever you ask the Father in my name, he may give it to you."
+          </p>
+          <p class="scripture-ref">John 15:16 — ESV</p>
+        </div>
+        <div class="scripture-block">
+          <p class="scripture-text">
+            "You can make many plans, but the LORD's purpose will prevail."
+          </p>
+          <p class="scripture-ref">Proverbs 19:21 — NLT</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer style="border-top:1px solid var(--border); padding:3rem 0; text-align:center;">
+    <div class="container">
+      <p style="font-family:var(--font-head); font-size:1.5rem; color:var(--text); letter-spacing:0.1em;">HARWOOD <span style="color:var(--accent-gold);">ENTERPRISES</span></p>
+      <p style="color:var(--text-muted); font-size:0.85rem; margin-top:0.75rem;">
+        A family legacy platform &bull; Founded by James Keith Harwood II
+      </p>
+      <p style="margin-top:1.5rem;">
+        <a href="../index.html" style="font-size:0.8rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--text-muted);">← James Keith Harwood II</a>
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile nav toggle
+    const toggle = document.querySelector('.nav-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    if (toggle) toggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.scroll-reveal');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    reveals.forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

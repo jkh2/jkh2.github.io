@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About | Harwood Enterprises</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .page-hero {
+      min-height: 40vh;
+      display: flex;
+      align-items: flex-end;
+      padding-top: 100px;
+      padding-bottom: 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .page-hero-bg {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 70% 60% at 50% 30%, rgba(201,168,76,0.06) 0%, transparent 70%);
+    }
+    .page-hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(201,168,76,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(201,168,76,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+    .hero-title {
+      font-family: var(--font-head);
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      position: relative;
+    }
+    .hero-sub {
+      font-size: 0.8rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent-gold);
+      margin-bottom: 1rem;
+    }
+    .content-block {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2.5rem 3rem;
+      margin-bottom: 2rem;
+    }
+    .content-block h3 {
+      font-family: var(--font-head);
+      font-size: 1.6rem;
+      color: var(--accent-gold);
+      margin-bottom: 1.25rem;
+    }
+    .content-block p {
+      color: var(--text-muted);
+      line-height: 1.85;
+      margin-bottom: 1rem;
+    }
+    .content-block p:last-child { margin-bottom: 0; }
+    .scripture-block {
+      border-left: 3px solid var(--accent-gold);
+      padding: 1.5rem 2rem;
+      background: rgba(201,168,76,0.04);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      margin: 2rem 0;
+    }
+    .scripture-block p {
+      font-family: var(--font-head);
+      font-style: italic;
+      font-size: 1.1rem;
+      color: var(--text);
+      line-height: 1.7;
+      margin-bottom: 0.5rem;
+    }
+    .scripture-block cite {
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent-gold);
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .back-link:hover { color: var(--accent-gold); }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">Harwood <span>Enterprises</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html" class="active">About</a></li>
+        <li><a href="portfolio.html">Portfolio</a></li>
+        <li><a href="team.html">Team</a></li>
+        <li><a href="history.html">History</a></li>
+        <li><a href="training.html">Training</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="../index.html" class="back-link">← JKH II</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section class="page-hero">
+    <div class="page-hero-bg"></div>
+    <div class="page-hero-grid"></div>
+    <div class="container" style="position:relative;">
+      <p class="hero-sub">Harwood Enterprises</p>
+      <h1 class="hero-title">About</h1>
+    </div>
+  </section>
+
+  <section style="padding-top: 3rem;">
+    <div class="container">
+      <span class="section-label">Our Vision</span>
+      <h2 class="section-title">Striving For Excellence For Future Generations</h2>
+
+      <div class="content-block">
+        <h3>Our Vision</h3>
+        <p>At Harwood Enterprises, we envision more than just a platform; we see a sanctuary of ideas and dreams. Our driving force is to provide a haven where like-minded individuals bearing the Harwood name can unite, transcending generations, to discuss groundbreaking concepts and transform them into thriving ventures.</p>
+        <p>Our ultimate goal is to create lasting wealth that empowers our family members to honor and worship our Creator, while also uplifting and inspiring humanity at large.</p>
+      </div>
+
+      <div class="content-block">
+        <h3>Founding Inspiration</h3>
+        <p>Our founder's inspiration for Harwood Enterprises emerged after a profound period of contemplation and prayer. This vision was nurtured by a deep belief in the potential of our family's collective talents and the desire to channel those talents toward positive change.</p>
+        <p>The fusion of family values, faith, and a commitment to making a meaningful impact on the world became the cornerstone of Harwood Enterprises.</p>
+      </div>
+
+      <div class="content-block">
+        <h3>What We Offer</h3>
+        <p>Harwood Enterprises is more than just a digital space; it's a community-driven initiative. Through a combination of interactive forums, knowledge-sharing events, workshops, and resources, we aim to provide a nurturing environment for members to cultivate their ideas, collaborate with fellow Harwoods, and embark on transformative entrepreneurial journeys.</p>
+        <p>Our commitment to mutual support, innovation, and the pursuit of excellence binds us together.</p>
+      </div>
+
+      <div class="content-block">
+        <h3>Join Us in Building Tomorrow</h3>
+        <p>We invite all Harwoods to be part of this movement. Together, we'll write a new chapter in our family's history — one defined by unity, creativity, and prosperity. As we journey forward through the generations in this human domain, let us remember that our endeavors are not only a testament to our name but also a testament to the values that shape us.</p>
+        <p>Let us never forget our purpose of loving and pleasing our Creator.</p>
+
+        <div class="scripture-block">
+          <p>"You are worthy, our Lord and God, to receive glory and honor and power, for you created all things, and by your will they were created and have their being."</p>
+          <cite>Colossians 1:16</cite>
+        </div>
+
+        <p>Welcome to Harwood Enterprises, where our legacy is not just a name, but a beacon of inspiration and progress.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer style="border-top:1px solid var(--border); padding:3rem 0; text-align:center;">
+    <div class="container">
+      <p style="font-family:var(--font-head); font-size:1.5rem; color:var(--text); letter-spacing:0.1em;">HARWOOD <span style="color:var(--accent-gold);">ENTERPRISES</span></p>
+      <p style="color:var(--text-muted); font-size:0.85rem; margin-top:0.75rem;">A family legacy platform &bull; Founded by James Keith Harwood II</p>
+      <p style="margin-top:1.5rem;">
+        <a href="../index.html" style="font-size:0.8rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--text-muted);">← James Keith Harwood II</a>
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    const toggle = document.querySelector('.nav-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    if (toggle) toggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+  </script>
+</body>
+</html>

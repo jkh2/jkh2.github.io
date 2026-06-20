@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Team | Harwood Enterprises</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .page-hero {
+      min-height: 40vh;
+      display: flex;
+      align-items: flex-end;
+      padding-top: 100px;
+      padding-bottom: 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .page-hero-bg {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 70% 60% at 50% 30%, rgba(201,168,76,0.06) 0%, transparent 70%);
+    }
+    .page-hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(201,168,76,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(201,168,76,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+    .hero-title {
+      font-family: var(--font-head);
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      position: relative;
+    }
+    .hero-sub {
+      font-size: 0.8rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent-gold);
+      margin-bottom: 1rem;
+    }
+    .value-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .value-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem 2.5rem;
+      margin-bottom: 1.25rem;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 1.5rem;
+      align-items: start;
+      transition: border-color var(--transition);
+    }
+    .value-item:hover { border-color: var(--accent-gold); }
+    .value-q {
+      font-family: var(--font-head);
+      font-style: italic;
+      font-size: 1.05rem;
+      color: var(--text);
+      line-height: 1.5;
+      margin-bottom: 0.5rem;
+    }
+    .value-desc {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      line-height: 1.7;
+    }
+    .value-icon {
+      font-size: 1.4rem;
+      padding-top: 0.15rem;
+    }
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+    .team-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      text-align: center;
+    }
+    .team-initials {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: rgba(201,168,76,0.12);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-head);
+      font-size: 1.4rem;
+      color: var(--accent-gold);
+      margin: 0 auto 1.25rem;
+    }
+    .team-card h4 {
+      font-family: var(--font-head);
+      font-size: 1.15rem;
+      color: var(--text);
+    }
+    .team-card p {
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent-gold);
+      margin-top: 0.35rem;
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .back-link:hover { color: var(--accent-gold); }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">Harwood <span>Enterprises</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="portfolio.html">Portfolio</a></li>
+        <li><a href="team.html" class="active">Team</a></li>
+        <li><a href="history.html">History</a></li>
+        <li><a href="training.html">Training</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="../index.html" class="back-link">← JKH II</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section class="page-hero">
+    <div class="page-hero-bg"></div>
+    <div class="page-hero-grid"></div>
+    <div class="container" style="position:relative;">
+      <p class="hero-sub">Harwood Enterprises</p>
+      <h1 class="hero-title">Team &amp; Values</h1>
+    </div>
+  </section>
+
+  <section style="padding-top: 3rem;">
+    <div class="container">
+      <span class="section-label">Our Foundation</span>
+      <h2 class="section-title">Core Values</h2>
+      <p class="section-subtitle">Harwood Enterprises strives for a business culture in which people are challenged, rewarded, and given the opportunity to grow. We seek value on a win-win basis.</p>
+
+      <ul class="value-list">
+        <li class="value-item">
+          <div class="value-icon">✦</div>
+          <div>
+            <p class="value-q">Will my action bring glory and honor to God?</p>
+            <p class="value-desc">Our #1 goal is to glorify and honor God as vessels of service for His divine purpose through our businesses.</p>
+          </div>
+        </li>
+        <li class="value-item">
+          <div class="value-icon">✦</div>
+          <div>
+            <p class="value-q">Will my action strengthen our relationships, positively affecting our partners and associates?</p>
+            <p class="value-desc">Our success rests on strong relationships and long lasting alliances.</p>
+          </div>
+        </li>
+        <li class="value-item">
+          <div class="value-icon">✦</div>
+          <div>
+            <p class="value-q">Will my action positively impact our associates?</p>
+            <p class="value-desc">We support each other to accomplish common goals, and we trust and respect each other.</p>
+          </div>
+        </li>
+        <li class="value-item">
+          <div class="value-icon">✦</div>
+          <div>
+            <p class="value-q">Will my action improve our operation effectiveness?</p>
+            <p class="value-desc">We use the best tools to maximize efficiencies and apply the appropriate resources.</p>
+          </div>
+        </li>
+        <li class="value-item">
+          <div class="value-icon">✦</div>
+          <div>
+            <p class="value-q">Will my action maintain our objectives of financial accountability and profitability?</p>
+            <p class="value-desc">Financial accountability and profitability are keys to progressing through the generations. ALWAYS adhere to our #1 goal of glorifying God and trust Him. He sustains us for HIS purpose.</p>
+          </div>
+        </li>
+        <li class="value-item">
+          <div class="value-icon">✦</div>
+          <div>
+            <p class="value-q">Will my action enhance our reputation?</p>
+            <p class="value-desc">We guard our reputation as a valuable asset. Consider how your actions will affect your reputation, but also the reputation of our name for the future generations. Make them proud!</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section>
+    <div class="container">
+      <span class="section-label">The People</span>
+      <h2 class="section-title">Founding Team Members</h2>
+
+      <div class="team-grid">
+        <div class="team-card">
+          <div class="team-initials">JH</div>
+          <h4>James Keith Harwood II</h4>
+          <p>Founder</p>
+        </div>
+        <div class="team-card">
+          <div class="team-initials">PH</div>
+          <h4>Paul David Harwood</h4>
+          <p>Founding Member</p>
+        </div>
+        <div class="team-card">
+          <div class="team-initials">DH</div>
+          <h4>Debbie Cawood Harwood</h4>
+          <p>Founding Member</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer style="border-top:1px solid var(--border); padding:3rem 0; text-align:center;">
+    <div class="container">
+      <p style="font-family:var(--font-head); font-size:1.5rem; color:var(--text); letter-spacing:0.1em;">HARWOOD <span style="color:var(--accent-gold);">ENTERPRISES</span></p>
+      <p style="color:var(--text-muted); font-size:0.85rem; margin-top:0.75rem;">A family legacy platform &bull; Founded by James Keith Harwood II</p>
+      <p style="margin-top:1.5rem;">
+        <a href="../index.html" style="font-size:0.8rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--text-muted);">← James Keith Harwood II</a>
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    const toggle = document.querySelector('.nav-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    if (toggle) toggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+  </script>
+</body>
+</html>

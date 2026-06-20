@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Training | Harwood Enterprises</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .page-hero {
+      min-height: 50vh;
+      display: flex;
+      align-items: flex-end;
+      padding-top: 100px;
+      padding-bottom: 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .page-hero-bg {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 70% 60% at 50% 30%, rgba(201,168,76,0.07) 0%, transparent 70%);
+    }
+    .page-hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(201,168,76,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(201,168,76,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+    .hero-title {
+      font-family: var(--font-head);
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      position: relative;
+    }
+    .hero-sub {
+      font-size: 0.8rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent-gold);
+      margin-bottom: 1rem;
+    }
+    .warrior-banner {
+      background: rgba(201,168,76,0.06);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 3rem;
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    .warrior-banner h2 {
+      font-family: var(--font-head);
+      font-size: clamp(1.5rem, 3vw, 2.5rem);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent-gold);
+      margin-bottom: 1rem;
+    }
+    .warrior-banner p {
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.8;
+    }
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.25rem;
+      margin-bottom: 3rem;
+    }
+    .pillar-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.75rem 1.5rem;
+      text-align: center;
+      transition: border-color var(--transition), background var(--transition);
+    }
+    .pillar-card:hover {
+      border-color: var(--accent-gold);
+      background: rgba(201,168,76,0.04);
+    }
+    .pillar-num {
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--accent-gold);
+      margin-bottom: 0.75rem;
+    }
+    .pillar-card h4 {
+      font-family: var(--font-head);
+      font-size: 1rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text);
+    }
+    .notice-block {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent-gold);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 1.5rem 2rem;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      line-height: 1.7;
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .back-link:hover { color: var(--accent-gold); }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">Harwood <span>Enterprises</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="portfolio.html">Portfolio</a></li>
+        <li><a href="team.html">Team</a></li>
+        <li><a href="history.html">History</a></li>
+        <li><a href="training.html" class="active">Training</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="../index.html" class="back-link">← JKH II</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section class="page-hero">
+    <div class="page-hero-bg"></div>
+    <div class="page-hero-grid"></div>
+    <div class="container" style="position:relative;">
+      <p class="hero-sub">Harwood Enterprises</p>
+      <h1 class="hero-title">Training Videos</h1>
+    </div>
+  </section>
+
+  <section style="padding-top: 3rem;">
+    <div class="container">
+
+      <div class="warrior-banner">
+        <h2>Warriors Must Train Continuously To Win</h2>
+        <p>Below you will find a collection of training resources that will help you to be competitive and WIN in the human domain — across every dimension of life that matters.</p>
+      </div>
+
+      <span class="section-label">The Ten Pillars</span>
+      <h2 class="section-title">Training Disciplines</h2>
+      <p class="section-subtitle">A warrior's preparation spans every domain. These ten disciplines form the foundation of readiness.</p>
+
+      <div class="pillars-grid">
+        <div class="pillar-card">
+          <p class="pillar-num">01</p>
+          <h4>Study the Word of God</h4>
+        </div>
+        <div class="pillar-card">
+          <p class="pillar-num">02</p>
+          <h4>Prayer</h4>
+        </div>
+        <div class="pillar-card">
+          <p class="pillar-num">03</p>
+          <h4>Physical Conditioning</h4>
+        </div>
+        <div class="pillar-card">
+          <p class="pillar-num">04</p>
+          <h4>Nutrition</h4>
+        </div>
+        <div class="pillar-card">
+          <p class="pillar-num">05</p>
+          <h4>Rest</h4>
+        </div>
+        <div class="pillar-card">
+          <p class="pillar-num">06</p>
+          <h4>Education</h4>
+        </div>
+        <div class="pillar-card">
+          <p class="pillar-num">07</p>
+          <h4>Hone Survival Skills</h4>
+        </div>
+        <div class="pillar-card">
+          <p class="pillar-num">08</p>
+          <h4>Be the Hunter</h4>
+        </div>
+        <div class="pillar-card">
+          <p class="pillar-num">09</p>
+          <h4>Be Fishers of Men</h4>
+        </div>
+        <div class="pillar-card">
+          <p class="pillar-num">10</p>
+          <h4>Financial Growth &amp; Responsibility</h4>
+        </div>
+      </div>
+
+      <div class="notice-block">
+        Training video content for each discipline is being compiled and will be added here. Check back for updates as the resource library grows.
+      </div>
+
+    </div>
+  </section>
+
+  <footer style="border-top:1px solid var(--border); padding:3rem 0; text-align:center; margin-top:4rem;">
+    <div class="container">
+      <p style="font-family:var(--font-head); font-size:1.5rem; color:var(--text); letter-spacing:0.1em;">HARWOOD <span style="color:var(--accent-gold);">ENTERPRISES</span></p>
+      <p style="color:var(--text-muted); font-size:0.85rem; margin-top:0.75rem;">A family legacy platform &bull; Founded by James Keith Harwood II</p>
+      <p style="margin-top:1.5rem;">
+        <a href="../index.html" style="font-size:0.8rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--text-muted);">← James Keith Harwood II</a>
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    const toggle = document.querySelector('.nav-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    if (toggle) toggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+  </script>
+</body>
+</html>
