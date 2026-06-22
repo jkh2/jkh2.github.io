@@ -22,8 +22,8 @@
 
     .img-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 1rem;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 0.85rem;
     }
     .img-card {
       background: linear-gradient(135deg, #0e1220, #1a2340);
@@ -38,20 +38,18 @@
       aspect-ratio: 1;
       object-fit: cover;
       display: block;
+      cursor: zoom-in;
     }
     .img-card.portrait img {
       aspect-ratio: 4 / 5;
       object-fit: contain;
       background: #02040a;
     }
-    .img-card.wide {
-      grid-column: span 2;
-    }
     .img-card.wide img {
       aspect-ratio: 16 / 9;
     }
     .img-caption {
-      padding: 1rem;
+      padding: 0.85rem;
     }
     .img-caption h3 {
       font-size: 1rem;
@@ -59,13 +57,56 @@
     }
     .img-caption p {
       color: var(--text-muted);
-      font-size: 0.85rem;
-      line-height: 1.6;
+      font-size: 0.8rem;
+      line-height: 1.5;
       margin: 0;
     }
+    .image-lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      background: rgba(2, 4, 10, 0.92);
+    }
+    .image-lightbox.open {
+      display: flex;
+    }
+    .image-lightbox img {
+      max-width: min(96vw, 1400px);
+      max-height: 86vh;
+      object-fit: contain;
+      border-radius: 6px;
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.55);
+    }
+    .lightbox-close {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      width: 42px;
+      height: 42px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: rgba(10, 14, 24, 0.85);
+      color: var(--text);
+      font-size: 1.65rem;
+      line-height: 1;
+      cursor: pointer;
+    }
     @media (max-width: 640px) {
-      .img-card.wide {
-        grid-column: span 1;
+      .img-grid {
+        grid-template-columns: repeat(auto-fill, minmax(165px, 1fr));
+      }
+      .img-caption {
+        padding: 0.7rem;
+      }
+      .img-caption h3 {
+        font-size: 0.92rem;
+      }
+      .img-caption p {
+        font-size: 0.76rem;
       }
     }
   </style>
@@ -190,6 +231,11 @@
 
   <div class="divider"></div>
 
+  <div class="image-lightbox" id="image-lightbox" aria-hidden="true" role="dialog" aria-label="Expanded portfolio image">
+    <button class="lightbox-close" type="button" aria-label="Close expanded image">&times;</button>
+    <img src="" alt="">
+  </div>
+
   <!-- Footer -->
   <footer>
     <div class="footer-inner">
@@ -204,5 +250,37 @@
   </footer>
 
   <script src="js/main.js"></script>
+  <script>
+    const lightbox = document.getElementById('image-lightbox');
+    const lightboxImg = lightbox.querySelector('img');
+    const lightboxClose = lightbox.querySelector('.lightbox-close');
+
+    document.querySelectorAll('.img-card img').forEach(image => {
+      image.addEventListener('click', () => {
+        lightboxImg.src = image.src;
+        lightboxImg.alt = image.alt;
+        lightbox.classList.add('open');
+        lightbox.setAttribute('aria-hidden', 'false');
+        lightboxClose.focus();
+      });
+    });
+
+    const closeLightbox = () => {
+      lightbox.classList.remove('open');
+      lightbox.setAttribute('aria-hidden', 'true');
+      lightboxImg.src = '';
+      lightboxImg.alt = '';
+    };
+
+    lightboxClose.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', event => {
+      if (event.target === lightbox) closeLightbox();
+    });
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape' && lightbox.classList.contains('open')) {
+        closeLightbox();
+      }
+    });
+  </script>
 </body>
 </html>
