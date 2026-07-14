@@ -11,11 +11,11 @@
   <link rel="stylesheet" href="../css/style.css">
   <style>
     .principles-hero {
-      min-height: 76vh;
+      min-height: 54vh;
       display: flex;
       align-items: flex-end;
-      padding-top: 120px;
-      padding-bottom: 5rem;
+      padding-top: 100px;
+      padding-bottom: 4rem;
       position: relative;
       overflow: hidden;
     }
@@ -26,6 +26,15 @@
         radial-gradient(ellipse 72% 76% at 70% 42%, rgba(201,168,76,0.1) 0%, transparent 64%),
         radial-gradient(ellipse 44% 44% at 18% 26%, rgba(74,158,255,0.055) 0%, transparent 70%);
     }
+    .principles-hero-logo {
+      position: absolute;
+      inset: 0;
+      background: url('../assets/images/sentinel-alliance-logo.png') center 28% / min(30vw, 360px) no-repeat;
+      opacity: 0.16;
+      transform: scale(1.02) translate(var(--tilt-x, 0px), var(--tilt-y, 0px)) rotate(var(--tilt-r, 0deg));
+      transition: transform 0.9s cubic-bezier(.16,1,.3,1), opacity 0.6s ease;
+    }
+    .principles-hero:hover .principles-hero-logo { opacity: 0.24; }
     .principles-grid-bg {
       position: absolute;
       inset: 0;
@@ -194,6 +203,7 @@
 
   <section class="principles-hero">
     <div class="principles-hero-bg"></div>
+    <div class="principles-hero-logo"></div>
     <div class="principles-grid-bg"></div>
     <div class="container" style="position:relative;">
       <div class="hero-label">Ethics & Covenant Economics</div>
@@ -347,6 +357,33 @@
     const toggle = document.querySelector('.nav-toggle');
     const navLinks = document.querySelector('.nav-links');
     if (toggle) toggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+
+    // Interactive hero seal — subtle cursor/finger tilt, matching the main Sentinel AI Systems hero
+    const pHero = document.querySelector('.principles-hero');
+    const pLogo = document.querySelector('.principles-hero-logo');
+    if (pHero && pLogo) {
+      const shift = 8;
+      const rotate = 1.4;
+      const setTilt = (clientX, clientY) => {
+        const rect = pHero.getBoundingClientRect();
+        const relX = (clientX - rect.left) / rect.width - 0.5;
+        const relY = (clientY - rect.top) / rect.height - 0.5;
+        pLogo.style.setProperty('--tilt-x', (relX * shift).toFixed(1) + 'px');
+        pLogo.style.setProperty('--tilt-y', (relY * shift).toFixed(1) + 'px');
+        pLogo.style.setProperty('--tilt-r', (relX * rotate).toFixed(1) + 'deg');
+      };
+      const resetTilt = () => {
+        pLogo.style.setProperty('--tilt-x', '0px');
+        pLogo.style.setProperty('--tilt-y', '0px');
+        pLogo.style.setProperty('--tilt-r', '0deg');
+      };
+      pHero.addEventListener('mousemove', (e) => setTilt(e.clientX, e.clientY));
+      pHero.addEventListener('mouseleave', resetTilt);
+      pHero.addEventListener('touchmove', (e) => {
+        if (e.touches[0]) setTilt(e.touches[0].clientX, e.touches[0].clientY);
+      }, { passive: true });
+      pHero.addEventListener('touchend', resetTilt);
+    }
   </script>
 
   <div class="sentinel-credit">
