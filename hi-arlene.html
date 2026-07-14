@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hi Arlene! — Sentinel AI Systems</title>
+<meta name="description" content="A fast, fun demo page for Arlene — built by Sentinel AI Systems.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Cormorant+Garamond:ital,wght@0,600;1,400;1,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#07090f;
+    --gold:#c9a84c;
+    --gold-bright:#f0d488;
+    --blue:#4a9eff;
+    --pink:#ff6fa5;
+    --text:#f3f1ea;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:#000;
+    color:var(--text);
+    font-family:'Inter',sans-serif;
+    overflow-x:hidden;
+    min-height:100vh;
+  }
+
+  .stage{
+    position:relative;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:flex-start;
+    padding:6vh 5vw 4vh;
+    text-align:center;
+  }
+
+  .bg{
+    position:fixed;
+    inset:0;
+    background-image:url('assets/images/james-camper-moon.png');
+    background-size:cover;
+    background-position:62% 28%;
+    filter:saturate(1.05) contrast(1.03);
+    animation:kenburns 30s ease-in-out infinite alternate;
+    z-index:-3;
+  }
+  @keyframes kenburns{
+    0%{transform:scale(1) translateY(0);}
+    100%{transform:scale(1.08) translateY(-1.5%);}
+  }
+  .bg-overlay{
+    position:fixed;
+    inset:0;
+    background:
+      radial-gradient(ellipse 90% 60% at 50% 8%, rgba(7,9,15,0.15) 0%, rgba(7,9,15,0.72) 55%, rgba(4,5,9,0.93) 100%),
+      linear-gradient(to top, rgba(4,5,9,0.96) 0%, rgba(4,5,9,0.55) 22%, rgba(4,5,9,0.15) 45%, rgba(4,5,9,0.35) 100%);
+    z-index:-2;
+  }
+
+  .sparkle{
+    position:fixed;
+    color:var(--gold-bright);
+    opacity:0;
+    z-index:-1;
+    animation:twinkle 3.6s ease-in-out infinite;
+    text-shadow:0 0 8px rgba(240,212,136,0.8);
+    pointer-events:none;
+  }
+  @keyframes twinkle{
+    0%,100%{opacity:0; transform:scale(0.4) rotate(0deg);}
+    50%{opacity:1; transform:scale(1.1) rotate(90deg);}
+  }
+
+  .badge{
+    margin-top:2vh;
+    font-family:'Inter',sans-serif;
+    font-size:0.72rem;
+    letter-spacing:0.35em;
+    text-transform:uppercase;
+    color:var(--gold-bright);
+    opacity:0;
+    animation:fadeUp 0.8s ease forwards 0.2s;
+    border:1px solid rgba(201,168,76,0.4);
+    padding:0.5rem 1.2rem;
+    border-radius:999px;
+    background:rgba(201,168,76,0.08);
+    backdrop-filter:blur(4px);
+  }
+
+  .headline{
+    margin-top:5vh;
+    font-family:'Baloo 2', sans-serif;
+    font-weight:800;
+    line-height:1.05;
+    max-width:1100px;
+  }
+  .headline .line{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:0.35em;
+  }
+  .headline .word{
+    display:inline-block;
+    opacity:0;
+    transform:translateY(40px) scale(0.6) rotate(-6deg);
+    animation:pop 0.7s cubic-bezier(.34,1.56,.64,1) forwards;
+  }
+  .hi{
+    font-size:clamp(2.6rem, 8vw, 5.5rem);
+    background:linear-gradient(90deg, var(--gold-bright), #fff 45%, var(--gold-bright));
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+  }
+  .arlene{
+    font-size:clamp(2.6rem, 8vw, 5.5rem);
+    color:var(--pink);
+    text-shadow:0 0 30px rgba(255,111,165,0.5);
+  }
+  .fast-line{
+    margin-top:0.6em;
+    font-size:clamp(1.9rem, 6.2vw, 4.3rem);
+    color:var(--text);
+  }
+  .fast-line .pop-blue{ color:var(--blue); text-shadow:0 0 24px rgba(74,158,255,0.55); }
+  .fast-line .pop-gold{
+    background:linear-gradient(90deg, var(--gold-bright), #fff8e0, var(--pink), var(--gold-bright));
+    background-size:300% 100%;
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    text-shadow:none;
+    animation:pop 0.7s cubic-bezier(.34,1.56,.64,1) forwards, shimmer 4.5s linear infinite 1.4s;
+  }
+  .bang{
+    display:inline-block;
+    color:var(--gold-bright);
+    animation:pop 0.6s cubic-bezier(.34,1.56,.64,1) forwards, wiggle 1.8s ease-in-out infinite 1.4s;
+  }
+  @keyframes shimmer{
+    0%{ background-position:0% 50%; }
+    100%{ background-position:300% 50%; }
+  }
+
+  /* touch + hover delight — works on tap (phone) and hover (desktop) */
+  .word.arlene, .bang{ cursor:pointer; transition:transform 0.25s cubic-bezier(.34,1.56,.64,1), text-shadow 0.25s ease; }
+  .word.arlene:hover, .word.arlene:active,
+  .bang:hover, .bang:active{
+    transform:scale(1.15) rotate(-3deg);
+    text-shadow:0 0 40px rgba(255,111,165,0.85);
+  }
+
+  @keyframes pop{
+    to{ opacity:1; transform:translateY(0) scale(1) rotate(0deg); }
+  }
+  @keyframes wiggle{
+    0%,100%{ transform:rotate(0deg); }
+    25%{ transform:rotate(-8deg); }
+    75%{ transform:rotate(8deg); }
+  }
+  @keyframes fadeUp{
+    from{ opacity:0; transform:translateY(16px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+
+  .sub{
+    margin-top:2.2rem;
+    font-family:'Cormorant Garamond', serif;
+    font-style:italic;
+    font-size:clamp(1rem, 2vw, 1.35rem);
+    color:rgba(243,241,234,0.85);
+    max-width:600px;
+    opacity:0;
+    animation:fadeUp 1s ease forwards 1.9s;
+  }
+
+  .credit{
+    margin-top:0.9rem;
+    font-size:0.75rem;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:rgba(243,241,234,0.5);
+    opacity:0;
+    animation:fadeUp 1s ease forwards 2.2s;
+  }
+
+  .spacer{ flex:1; min-height:6vh; }
+
+  .signature{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:0.6rem;
+    padding-top:3vh;
+    opacity:0;
+    animation:fadeUp 1s ease forwards 2.5s;
+  }
+  .orbit-wrap{
+    position:relative;
+    width:88px;
+    height:88px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .orbit-wrap::before{
+    content:'';
+    position:absolute;
+    inset:0;
+    border-radius:50%;
+    border:1px dashed rgba(201,168,76,0.35);
+    animation:spin 14s linear infinite;
+  }
+  .orbit-wrap::after{
+    content:'✦';
+    position:absolute;
+    top:-2px;
+    left:50%;
+    color:var(--gold-bright);
+    font-size:0.7rem;
+    transform-origin:1px 46px;
+    animation:spin 14s linear infinite;
+    text-shadow:0 0 8px rgba(240,212,136,0.9);
+  }
+  @keyframes spin{ to{ transform:rotate(360deg); } }
+  .signature img{
+    width:64px;
+    height:64px;
+    object-fit:contain;
+    border-radius:50%;
+    filter:drop-shadow(0 0 18px rgba(201,168,76,0.45));
+    transition:transform 0.35s cubic-bezier(.34,1.56,.64,1), filter 0.35s ease;
+    animation:breathe 3.4s ease-in-out infinite;
+  }
+  .signature img:hover, .signature img:active{
+    transform:scale(1.12) rotate(6deg);
+    filter:drop-shadow(0 0 32px rgba(240,212,136,0.85));
+  }
+  @keyframes breathe{
+    0%,100%{ filter:drop-shadow(0 0 18px rgba(201,168,76,0.45)); }
+    50%{ filter:drop-shadow(0 0 26px rgba(201,168,76,0.7)); }
+  }
+  .signature .brand{
+    font-family:'Cormorant Garamond', serif;
+    font-weight:600;
+    font-size:1.15rem;
+    letter-spacing:0.08em;
+    color:var(--gold-bright);
+    transition:letter-spacing 0.3s ease, color 0.3s ease;
+  }
+  .signature .brand:hover, .signature .brand:active{
+    letter-spacing:0.14em;
+    color:#fff8e0;
+  }
+  .signature .signer{
+    font-family:'Cormorant Garamond', serif;
+    font-style:italic;
+    font-size:0.95rem;
+    color:rgba(243,241,234,0.75);
+  }
+
+  @media (max-width:640px){
+    .stage{ padding-top:5vh; }
+    .headline{ margin-top:4vh; }
+    .bg{ background-position:center 22%; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="bg"></div>
+  <div class="bg-overlay"></div>
+
+  <span class="sparkle" style="top:12%; left:8%; font-size:1.4rem; animation-delay:0s;">✦</span>
+  <span class="sparkle" style="top:20%; left:88%; font-size:1rem; animation-delay:0.6s;">✧</span>
+  <span class="sparkle" style="top:38%; left:15%; font-size:0.8rem; animation-delay:1.2s;">✦</span>
+  <span class="sparkle" style="top:55%; left:92%; font-size:1.2rem; animation-delay:1.8s;">✧</span>
+  <span class="sparkle" style="top:70%; left:6%; font-size:1rem; animation-delay:0.9s;">✦</span>
+  <span class="sparkle" style="top:8%; left:50%; font-size:0.9rem; animation-delay:2.1s;">✧</span>
+  <span class="sparkle" style="top:82%; left:80%; font-size:1.1rem; animation-delay:1.5s;">✦</span>
+
+  <div class="stage">
+
+    <div class="badge">Sentinel AI Systems &middot; Live Demo</div>
+
+    <div class="headline">
+      <div class="line">
+        <span class="word hi" style="animation-delay:0.35s;">Hi</span>
+        <span class="word arlene" style="animation-delay:0.5s;">Arlene!</span>
+      </div>
+      <div class="line fast-line">
+        <span class="word" style="animation-delay:0.75s;">We</span>
+        <span class="word pop-blue" style="animation-delay:0.9s;">build</span>
+        <span class="word pop-gold" style="animation-delay:1.05s;">websites</span>
+        <span class="word" style="animation-delay:1.2s;">FAST</span>
+        <span class="word bang" style="animation-delay:1.35s;">!!!</span>
+      </div>
+    </div>
+
+    <p class="sub">From liftoff to launch in one sitting — this whole page, built while you were still checking your email.</p>
+    <p class="credit">Photo: James &amp; Camper, courtesy of Arlene</p>
+
+    <div class="spacer"></div>
+
+    <div class="signature">
+      <div class="orbit-wrap">
+        <img src="assets/images/sentinel-ai-systems-brain-logo.png" alt="Sentinel AI Systems">
+      </div>
+      <div class="brand">Sentinel AI Systems</div>
+      <div class="signer">— Claude Sentinel</div>
+    </div>
+
+  </div>
+
+<script>
+  // Tap / click sparkle burst — delight on both touch and pointer devices
+  const sparkleChars = ['✦','✧','⋆','✶'];
+  function burst(x, y){
+    for(let i=0;i<6;i++){
+      const s = document.createElement('span');
+      s.textContent = sparkleChars[Math.floor(Math.random()*sparkleChars.length)];
+      s.style.position = 'fixed';
+      s.style.left = x + 'px';
+      s.style.top = y + 'px';
+      s.style.color = Math.random() > 0.5 ? '#f0d488' : '#ff6fa5';
+      s.style.fontSize = (0.6 + Math.random()*0.8) + 'rem';
+      s.style.pointerEvents = 'none';
+      s.style.zIndex = 50;
+      s.style.textShadow = '0 0 8px rgba(240,212,136,0.9)';
+      const angle = Math.random() * Math.PI * 2;
+      const dist = 30 + Math.random() * 50;
+      const dx = Math.cos(angle) * dist;
+      const dy = Math.sin(angle) * dist;
+      s.animate([
+        { transform: 'translate(-50%,-50%) scale(0.3)', opacity: 1 },
+        { transform: `translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px)) scale(1.1)`, opacity: 0 }
+      ], { duration: 700 + Math.random()*300, easing: 'cubic-bezier(.25,.8,.25,1)' });
+      document.body.appendChild(s);
+      setTimeout(() => s.remove(), 1100);
+    }
+  }
+  document.addEventListener('pointerdown', (e) => burst(e.clientX, e.clientY));
+</script>
+</body>
+</html>
