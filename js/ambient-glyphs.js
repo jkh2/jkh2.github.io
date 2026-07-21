@@ -42,6 +42,7 @@
   function createGlyph(def, kind, pulseDelay, pulseDur, minOp, maxOp) {
     const wrap = document.createElement('div');
     wrap.className = 'ambient-glyph ' + kind;
+    wrap.setAttribute('aria-hidden', 'true');
     wrap.style.left = def.x + 'vw';
     wrap.style.top = def.y + 'vh';
 
