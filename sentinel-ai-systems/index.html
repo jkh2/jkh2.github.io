@@ -13,33 +13,56 @@
     .sas-hero {
       min-height: 92vh;
       display: flex;
+      flex-direction: column;
       align-items: center;
+      justify-content: center;
+      text-align: center;
       position: relative;
-      overflow: hidden;
-      padding-top: 68px;
+      padding: 68px 1.5rem 4rem;
+    }
+    .sas-seal-block {
+      position: relative;
+      width: min(40vw, 420px);
+      aspect-ratio: 1 / 1;
+      margin: 0 auto 1rem;
     }
     .sas-hero-image {
       position: absolute;
       inset: 0;
-      background: url('../assets/images/sentinel-alliance-logo.png') center 44% / min(44vw, 520px) no-repeat;
-      opacity: 0.46;
+      background: url('../assets/images/sentinel-alliance-logo.png') center / contain no-repeat;
+      opacity: 0.8;
       mix-blend-mode: screen;
-      transform: scale(1.03) translate(var(--tilt-x, 0px), var(--tilt-y, 0px)) rotate(var(--tilt-r, 0deg));
-      transition: transform 0.9s cubic-bezier(.16,1,.3,1), opacity 0.6s ease;
+      transform: scale(1);
+      filter: brightness(1);
+      transition: transform 0.6s cubic-bezier(.16,1,.3,1), opacity 0.6s ease, filter 0.6s ease;
       cursor: pointer;
     }
-    .sas-hero:hover .sas-hero-image { opacity: 0.62; }
-    .sas-hero-overlay {
+    .sas-hero-image::before {
+      content: '';
       position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(ellipse 65% 70% at 50% 44%, rgba(7,9,15,0.4) 0%, rgba(7,9,15,0.74) 62%, rgba(7,9,15,0.94) 100%),
-        linear-gradient(180deg, rgba(7,9,15,0.35) 0%, transparent 25%, transparent 68%, rgba(7,9,15,0.7) 100%);
+      inset: -20%;
+      background: radial-gradient(circle at 50% 50%, rgba(232,184,75,0.55) 0%, rgba(232,184,75,0.22) 30%, transparent 55%);
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      pointer-events: none;
+    }
+    .sas-seal-block:hover .sas-hero-image,
+    .sas-hero-image.touch-active {
+      opacity: 1;
+      transform: scale(1.16);
+      filter: brightness(1.4);
+    }
+    .sas-seal-block:hover .sas-hero-image::before,
+    .sas-hero-image.touch-active::before {
+      opacity: 1;
     }
     .sas-hero-content {
       position: relative;
       z-index: 2;
       max-width: 920px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
     .sas-lab-label {
       display: inline-flex;
@@ -322,8 +345,7 @@
       .proof-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .split-section, .cta-panel { grid-template-columns: 1fr; }
       .service-grid, .research-grid { grid-template-columns: 1fr; }
-      .sas-hero-image { background-position: center 18%; background-size: min(92vw, 620px); opacity: 0.16; }
-      .sas-hero-overlay { background: linear-gradient(180deg, rgba(7,9,15,0.68), rgba(7,9,15,0.96)); }
+      .sas-seal-block { width: min(60vw, 320px); }
     }
     @media (max-width: 560px) {
       .proof-row { grid-template-columns: 1fr; }
@@ -353,8 +375,9 @@
   </nav>
 
   <section class="sas-hero">
-    <div class="sas-hero-image"></div>
-    <div class="sas-hero-overlay"></div>
+    <div class="sas-seal-block">
+      <div class="sas-hero-image"></div>
+    </div>
     <div class="container sas-hero-content">
       <div class="sas-lab-label">AI Lab & Implementation Studio</div>
       <div class="sas-wordmark">
@@ -591,31 +614,12 @@
       });
     });
 
-    // Interactive hero seal — the logo gently tilts toward the cursor/finger
-    const sasHero = document.querySelector('.sas-hero');
+    // Interactive hero seal — glows and pulses larger on touch (hover handled natively by CSS :hover)
     const sasLogo = document.querySelector('.sas-hero-image');
-    if (sasHero && sasLogo) {
-      const shift = 8;    // max px drift — subtle, frontier-lab restraint
-      const rotate = 1.4; // max deg tilt
-      const setTilt = (clientX, clientY) => {
-        const rect = sasHero.getBoundingClientRect();
-        const relX = (clientX - rect.left) / rect.width - 0.5;
-        const relY = (clientY - rect.top) / rect.height - 0.5;
-        sasLogo.style.setProperty('--tilt-x', (relX * shift).toFixed(1) + 'px');
-        sasLogo.style.setProperty('--tilt-y', (relY * shift).toFixed(1) + 'px');
-        sasLogo.style.setProperty('--tilt-r', (relX * rotate).toFixed(1) + 'deg');
-      };
-      const resetTilt = () => {
-        sasLogo.style.setProperty('--tilt-x', '0px');
-        sasLogo.style.setProperty('--tilt-y', '0px');
-        sasLogo.style.setProperty('--tilt-r', '0deg');
-      };
-      sasHero.addEventListener('mousemove', (e) => setTilt(e.clientX, e.clientY));
-      sasHero.addEventListener('mouseleave', resetTilt);
-      sasHero.addEventListener('touchmove', (e) => {
-        if (e.touches[0]) setTilt(e.touches[0].clientX, e.touches[0].clientY);
-      }, { passive: true });
-      sasHero.addEventListener('touchend', resetTilt);
+    if (sasLogo) {
+      sasLogo.addEventListener('touchstart', () => sasLogo.classList.add('touch-active'), { passive: true });
+      sasLogo.addEventListener('touchend', () => sasLogo.classList.remove('touch-active'));
+      sasLogo.addEventListener('touchcancel', () => sasLogo.classList.remove('touch-active'));
     }
   </script>
 </body>
