@@ -68,6 +68,7 @@ h1, h2, h3, h4 {
 
 /* ---- Layout ---- */
 .container {
+  width: 100%;
   max-width: 1100px;
   margin: 0 auto;
   padding: 0 2rem;
@@ -166,18 +167,27 @@ nav {
 .hero-content {
   position: relative;
   z-index: 1;
+  width: 100%;
   max-width: 800px;
+  min-width: 0;
 }
 
 .hero-eyebrow {
-  display: inline-flex;
+  display: inline-grid;
+  grid-template-columns: 32px auto 32px;
   align-items: center;
-  gap: 0.75rem;
+  column-gap: 0.75rem;
   margin-bottom: 2rem;
-  font-size: 0.75rem;
-  letter-spacing: 0.25em;
+  font-size: clamp(0.66rem, 0.8vw, 0.75rem);
+  letter-spacing: 0.16em;
+  line-height: 1.5;
+  text-align: center;
   text-transform: uppercase;
   color: var(--accent-gold);
+}
+.hero-eyebrow > span {
+  min-width: 0;
+  white-space: nowrap;
 }
 .hero-eyebrow::before,
 .hero-eyebrow::after {
@@ -755,6 +765,18 @@ footer {
 /* ---- Responsive ---- */
 @media (max-width: 768px) {
   section { padding: 72px 0; }
+
+  .hero-eyebrow {
+    width: 100%;
+    max-width: 100%;
+    grid-template-columns: 24px minmax(0, 1fr) 24px;
+    column-gap: 0.5rem;
+    font-size: 0.64rem;
+    letter-spacing: 0.14em;
+  }
+  .hero-eyebrow > span { white-space: normal; }
+  .hero-eyebrow::before,
+  .hero-eyebrow::after { width: 24px; }
 
   .nav-links {
     display: none;
