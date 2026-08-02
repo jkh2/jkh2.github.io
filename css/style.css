@@ -179,7 +179,8 @@ nav {
   text-transform: uppercase;
   color: var(--accent-gold);
 }
-.hero-eyebrow::before {
+.hero-eyebrow::before,
+.hero-eyebrow::after {
   content: '';
   display: block;
   width: 32px;
