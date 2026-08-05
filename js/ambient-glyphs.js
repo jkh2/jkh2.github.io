@@ -157,8 +157,9 @@
   const RELEASE_RATE = 7;
   const MAX_GLYPH_SPEED = 430;
   const FLASH_RADIUS = 90;
-  const FLASH_DURATION_MS = 700;
-  let flashTimer = null;
+  const AFTERGLOW_DURATION_MS = 1200;
+  let afterglowTimer = null;
+  let glowingGlyphs = [];
   let lastFrameAt = performance.now();
 
   function clamp(value, min, max) {
@@ -207,15 +208,36 @@
   function releasePointer() {
     pointer.active = false;
     pointer.speed = 0;
+    releaseFlash();
     releaseCapturedSwarm(true);
   }
 
   function releaseCapturedSwarm(immediate) {
     glyphs.forEach((glyph) => {
       glyph.captured = false;
-      glyph.el.classList.remove('swarm-captured', 'swarm-flash');
+      glyph.el.classList.remove('swarm-captured');
       if (immediate) glyph.pull = Math.min(glyph.pull, 0.12);
     });
+  }
+
+  function releaseFlash() {
+    if (glowingGlyphs.length === 0) return;
+    if (afterglowTimer !== null) {
+      clearTimeout(afterglowTimer);
+      afterglowTimer = null;
+    }
+
+    const fadingGlyphs = glowingGlyphs.slice();
+    glowingGlyphs = [];
+    fadingGlyphs.forEach((glyph) => {
+      glyph.el.classList.remove('swarm-flash');
+      glyph.el.classList.add('swarm-afterglow');
+    });
+
+    afterglowTimer = window.setTimeout(() => {
+      fadingGlyphs.forEach((glyph) => glyph.el.classList.remove('swarm-afterglow'));
+      afterglowTimer = null;
+    }, AFTERGLOW_DURATION_MS);
   }
 
   function flashSwarm(event) {
@@ -231,19 +253,20 @@
 
     if (nearbyCount === 0) return;
 
-    if (flashTimer !== null) clearTimeout(flashTimer);
-    glyphs.forEach((glyph) => glyph.el.classList.remove('swarm-flash'));
+    if (afterglowTimer !== null) {
+      clearTimeout(afterglowTimer);
+      afterglowTimer = null;
+    }
+    glyphs.forEach((glyph) => glyph.el.classList.remove('swarm-flash', 'swarm-afterglow'));
     // Force a style flush so rapid repeat clicks restart the ignition animation.
     void document.body.offsetWidth;
+    glowingGlyphs = capturedGlyphs;
     capturedGlyphs.forEach((glyph) => glyph.el.classList.add('swarm-flash'));
-    flashTimer = window.setTimeout(() => {
-      glyphs.forEach((glyph) => glyph.el.classList.remove('swarm-flash'));
-      flashTimer = null;
-    }, FLASH_DURATION_MS);
   }
 
   window.addEventListener('pointermove', handlePointerMove, { passive: true });
   window.addEventListener('pointerdown', flashSwarm, { passive: true });
+  window.addEventListener('pointerup', releaseFlash, { passive: true });
   document.documentElement.addEventListener('pointerleave', releasePointer);
   window.addEventListener('blur', releasePointer);
   window.addEventListener('pointercancel', releasePointer);
