@@ -22,7 +22,21 @@
     { x: 78, y: 56, size: 19 },
     { x: 25, y: 38, size: 12 },
     { x: 60, y: 76, size: 16 },
-    { x: 97, y: 88, size: 13 }
+    { x: 97, y: 88, size: 13 },
+    { x: 3,  y: 26, size: 13 },
+    { x: 17, y: 29, size: 16 },
+    { x: 35, y: 3,  size: 12 },
+    { x: 52, y: 32, size: 15 },
+    { x: 72, y: 27, size: 13 },
+    { x: 98, y: 20, size: 17 },
+    { x: 3,  y: 70, size: 15 },
+    { x: 21, y: 66, size: 12 },
+    { x: 40, y: 84, size: 18 },
+    { x: 64, y: 58, size: 14 },
+    { x: 82, y: 74, size: 16 },
+    { x: 91, y: 48, size: 12 },
+    { x: 40, y: 48, size: 15 },
+    { x: 73, y: 96, size: 13 }
   ];
   const betGlyphs = [
     { x: 30, y: 15, size: 19 },
@@ -34,7 +48,17 @@
     { x: 76, y: 10, size: 18 },
     { x: 24, y: 90, size: 14 },
     { x: 96, y: 68, size: 17 },
-    { x: 68, y: 36, size: 16 }
+    { x: 68, y: 36, size: 16 },
+    { x: 20, y: 8,  size: 16 },
+    { x: 35, y: 34, size: 14 },
+    { x: 57, y: 6,  size: 18 },
+    { x: 82, y: 42, size: 15 },
+    { x: 8,  y: 88, size: 17 },
+    { x: 31, y: 57, size: 13 },
+    { x: 50, y: 67, size: 16 },
+    { x: 73, y: 68, size: 14 },
+    { x: 89, y: 91, size: 18 },
+    { x: 99, y: 55, size: 15 }
   ];
 
   function makeTriangleSVG(size) {
@@ -127,6 +151,7 @@
   const ESCAPE_TRIGGER_SPEED = 880;
   const ESCAPE_COOLDOWN_MS = 2200;
   const MAGNET_RADIUS = 170;
+  const MAGNET_STRENGTH = 1.1;
   const CAPTURE_DISTANCE = 54;
   const GATHER_RATE = 3.4;
   const RELEASE_RATE = 7;
@@ -268,7 +293,7 @@
       if (pointer.active && !escaped) {
         if (!glyph.captured) {
           const proximity = 1 - clamp(pointerDistance / MAGNET_RADIUS, 0, 1);
-          desiredPull = smoothstep(proximity);
+          desiredPull = Math.min(1, smoothstep(proximity) * MAGNET_STRENGTH);
           if (pointerDistance <= CAPTURE_DISTANCE) {
             glyph.captured = true;
             glyph.el.classList.add('swarm-captured');
