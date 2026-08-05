@@ -817,6 +817,7 @@ footer {
 }
 .ambient-glyph .pulse {
   display: block;
+  opacity: var(--min-op, 0.1);
   animation: ambient-pulse var(--pulse-dur, 9s) ease-in-out var(--pulse-delay, 0s) infinite;
 }
 .ambient-glyph.swarm-flash .pulse {

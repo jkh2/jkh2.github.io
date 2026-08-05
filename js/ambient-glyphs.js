@@ -129,10 +129,10 @@
 
   const glyphs = [];
   triangles.forEach((t, i) => glyphs.push(
-    createGlyph(t, 'tri', i, i * 0.5, 8, 0.12, 0.25)
+    createGlyph(t, 'tri', i, i * 0.5, 8, 0.12, 0.21)
   ));
   betGlyphs.forEach((b, i) => glyphs.push(
-    createGlyph(b, 'bet', triangles.length + i, 3 + i * 0.6, 10, 0.1, 0.22)
+    createGlyph(b, 'bet', triangles.length + i, 3 + i * 0.6, 10, 0.1, 0.19)
   ));
 
   const pointer = {
