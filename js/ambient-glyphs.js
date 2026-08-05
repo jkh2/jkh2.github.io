@@ -15,14 +15,26 @@
     { x: 88, y: 62, size: 14 },
     { x: 48, y: 92, size: 12 },
     { x: 6,  y: 45, size: 18 },
-    { x: 95, y: 40, size: 15 }
+    { x: 95, y: 40, size: 15 },
+    { x: 42, y: 8,  size: 13 },
+    { x: 63, y: 18, size: 17 },
+    { x: 37, y: 68, size: 14 },
+    { x: 78, y: 56, size: 19 },
+    { x: 25, y: 38, size: 12 },
+    { x: 60, y: 76, size: 16 },
+    { x: 97, y: 88, size: 13 }
   ];
   const betGlyphs = [
     { x: 30, y: 15, size: 19 },
     { x: 70, y: 85, size: 15 },
     { x: 12, y: 55, size: 17 },
     { x: 85, y: 25, size: 14 },
-    { x: 55, y: 45, size: 18 }
+    { x: 55, y: 45, size: 18 },
+    { x: 44, y: 24, size: 15 },
+    { x: 76, y: 10, size: 18 },
+    { x: 24, y: 90, size: 14 },
+    { x: 96, y: 68, size: 17 },
+    { x: 68, y: 36, size: 16 }
   ];
 
   function makeTriangleSVG(size) {
@@ -98,17 +110,23 @@
     lastX: 0,
     lastY: 0,
     lastMoveAt: 0,
-    speed: 0
+    speed: 0,
+    escapedUntil: 0
   };
 
-  // Below FULL_PULL_SPEED the entire field is strongly attracted. Above
-  // ESCAPE_SPEED the pointer has outrun it and the glyphs release toward home.
-  const FULL_PULL_SPEED = 260; // pixels per second
-  const ESCAPE_SPEED = 1050;
+  // A fast sweep trips a short escape latch. The pause prevents the swarm from
+  // immediately reacquiring a pointer that has just outrun it.
+  const FULL_PULL_SPEED = 220; // pixels per second
+  const ESCAPE_TRIGGER_SPEED = 720;
+  const ESCAPE_COOLDOWN_MS = 2200;
   const GATHER_RATE = 2.2;
   const RELEASE_RATE = 7;
   const MAX_GLYPH_SPEED = 430;
+  const FLASH_RADIUS = 90;
+  const FLASH_NEARBY_COUNT = 4;
+  const FLASH_DURATION_MS = 700;
   let fieldPull = 0;
+  let flashTimer = null;
   let lastFrameAt = performance.now();
 
   function clamp(value, min, max) {
@@ -127,10 +145,16 @@
 
     const now = performance.now();
     if (pointer.active) {
-      const elapsed = Math.max(8, now - pointer.lastMoveAt);
+      // Cap idle time so the first quick sweep after hovering is measured as a
+      // sweep, not averaged across the entire preceding pause.
+      const elapsed = clamp(now - pointer.lastMoveAt, 8, 50);
       const travelled = Math.hypot(event.clientX - pointer.lastX, event.clientY - pointer.lastY);
       const instantSpeed = (travelled / elapsed) * 1000;
       pointer.speed = pointer.speed * 0.58 + instantSpeed * 0.42;
+      if (pointer.speed >= ESCAPE_TRIGGER_SPEED) {
+        pointer.escapedUntil = now + ESCAPE_COOLDOWN_MS;
+        fieldPull = Math.min(fieldPull, 0.12);
+      }
     } else {
       pointer.speed = 0;
       pointer.active = true;
@@ -148,7 +172,31 @@
     pointer.speed = 0;
   }
 
+  function flashSwarm(event) {
+    if (event.pointerType === 'touch' || event.button !== 0) return;
+
+    const nearbyCount = glyphs.reduce((count, glyph) => {
+      const glyphX = (glyph.homeXPct / 100) * window.innerWidth + glyph.offsetX;
+      const glyphY = (glyph.homeYPct / 100) * window.innerHeight + glyph.offsetY;
+      const distance = Math.hypot(event.clientX - glyphX, event.clientY - glyphY);
+      return count + (distance <= FLASH_RADIUS ? 1 : 0);
+    }, 0);
+
+    if (nearbyCount < FLASH_NEARBY_COUNT) return;
+
+    if (flashTimer !== null) clearTimeout(flashTimer);
+    glyphs.forEach((glyph) => glyph.el.classList.remove('swarm-flash'));
+    // Force a style flush so rapid repeat clicks restart the ignition animation.
+    void document.body.offsetWidth;
+    glyphs.forEach((glyph) => glyph.el.classList.add('swarm-flash'));
+    flashTimer = window.setTimeout(() => {
+      glyphs.forEach((glyph) => glyph.el.classList.remove('swarm-flash'));
+      flashTimer = null;
+    }, FLASH_DURATION_MS);
+  }
+
   window.addEventListener('pointermove', handlePointerMove, { passive: true });
+  window.addEventListener('pointerdown', flashSwarm, { passive: true });
   document.documentElement.addEventListener('pointerleave', releasePointer);
   window.addEventListener('blur', releasePointer);
   window.addEventListener('pointercancel', releasePointer);
@@ -163,9 +211,10 @@
       pointer.speed *= Math.exp(-deltaSeconds * 8);
     }
 
-    const speedRange = ESCAPE_SPEED - FULL_PULL_SPEED;
+    const speedRange = ESCAPE_TRIGGER_SPEED - FULL_PULL_SPEED;
     const speedProgress = (pointer.speed - FULL_PULL_SPEED) / speedRange;
-    const desiredPull = pointer.active ? 1 - smoothstep(speedProgress) : 0;
+    const escaped = now < pointer.escapedUntil;
+    const desiredPull = pointer.active && !escaped ? 1 - smoothstep(speedProgress) : 0;
     const pullRate = desiredPull > fieldPull ? GATHER_RATE : RELEASE_RATE;
     fieldPull += (desiredPull - fieldPull) * (1 - Math.exp(-deltaSeconds * pullRate));
 
