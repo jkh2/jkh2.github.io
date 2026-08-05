@@ -89,6 +89,8 @@
       velocityX: 0,
       velocityY: 0,
       phase,
+      captured: false,
+      pull: 0,
       clusterX: Math.cos(phase) * (6 + (index % 4) * 4),
       clusterY: Math.sin(phase) * (6 + (index % 4) * 4),
       spring: 8 + (index % 3) * 0.8,
@@ -122,16 +124,15 @@
 
   // A fast sweep trips a short escape latch. The pause prevents the swarm from
   // immediately reacquiring a pointer that has just outrun it.
-  const FULL_PULL_SPEED = 220; // pixels per second
   const ESCAPE_TRIGGER_SPEED = 880;
   const ESCAPE_COOLDOWN_MS = 2200;
-  const GATHER_RATE = 2.2;
+  const MAGNET_RADIUS = 170;
+  const CAPTURE_DISTANCE = 54;
+  const GATHER_RATE = 3.4;
   const RELEASE_RATE = 7;
   const MAX_GLYPH_SPEED = 430;
   const FLASH_RADIUS = 90;
-  const FLASH_NEARBY_COUNT = 4;
   const FLASH_DURATION_MS = 700;
-  let fieldPull = 0;
   let flashTimer = null;
   let lastFrameAt = performance.now();
 
@@ -164,7 +165,7 @@
       pointer.speed = pointer.speed * 0.58 + instantSpeed * 0.42;
       if (pointer.speed >= ESCAPE_TRIGGER_SPEED) {
         pointer.escapedUntil = now + ESCAPE_COOLDOWN_MS;
-        fieldPull = Math.min(fieldPull, 0.12);
+        releaseCapturedSwarm(true);
       }
     } else {
       pointer.speed = 0;
@@ -181,25 +182,35 @@
   function releasePointer() {
     pointer.active = false;
     pointer.speed = 0;
+    releaseCapturedSwarm(true);
+  }
+
+  function releaseCapturedSwarm(immediate) {
+    glyphs.forEach((glyph) => {
+      glyph.captured = false;
+      glyph.el.classList.remove('swarm-captured', 'swarm-flash');
+      if (immediate) glyph.pull = Math.min(glyph.pull, 0.12);
+    });
   }
 
   function flashSwarm(event) {
     if (event.pointerType === 'touch' || event.button !== 0) return;
 
-    const nearbyCount = glyphs.reduce((count, glyph) => {
+    const capturedGlyphs = glyphs.filter((glyph) => glyph.captured);
+    const nearbyCount = capturedGlyphs.reduce((count, glyph) => {
       const glyphX = (glyph.homeXPct / 100) * window.innerWidth + glyph.offsetX;
       const glyphY = (glyph.homeYPct / 100) * window.innerHeight + glyph.offsetY;
       const distance = Math.hypot(event.clientX - glyphX, event.clientY - glyphY);
       return count + (distance <= FLASH_RADIUS ? 1 : 0);
     }, 0);
 
-    if (nearbyCount < FLASH_NEARBY_COUNT) return;
+    if (nearbyCount === 0) return;
 
     if (flashTimer !== null) clearTimeout(flashTimer);
     glyphs.forEach((glyph) => glyph.el.classList.remove('swarm-flash'));
     // Force a style flush so rapid repeat clicks restart the ignition animation.
     void document.body.offsetWidth;
-    glyphs.forEach((glyph) => glyph.el.classList.add('swarm-flash'));
+    capturedGlyphs.forEach((glyph) => glyph.el.classList.add('swarm-flash'));
     flashTimer = window.setTimeout(() => {
       glyphs.forEach((glyph) => glyph.el.classList.remove('swarm-flash'));
       flashTimer = null;
@@ -222,12 +233,7 @@
       pointer.speed *= Math.exp(-deltaSeconds * 8);
     }
 
-    const speedRange = ESCAPE_TRIGGER_SPEED - FULL_PULL_SPEED;
-    const speedProgress = (pointer.speed - FULL_PULL_SPEED) / speedRange;
     const escaped = now < pointer.escapedUntil;
-    const desiredPull = pointer.active && !escaped ? 1 - smoothstep(speedProgress) : 0;
-    const pullRate = desiredPull > fieldPull ? GATHER_RATE : RELEASE_RATE;
-    fieldPull += (desiredPull - fieldPull) * (1 - Math.exp(-deltaSeconds * pullRate));
 
     const seconds = now / 1000;
     glyphs.forEach((glyph) => {
@@ -254,8 +260,27 @@
 
       const gatheredX = pointer.x - homeX + glyph.clusterX;
       const gatheredY = pointer.y - homeY + glyph.clusterY;
-      const targetX = idleX + (gatheredX - idleX) * fieldPull;
-      const targetY = idleY + (gatheredY - idleY) * fieldPull;
+      const screenX = homeX + glyph.offsetX;
+      const screenY = homeY + glyph.offsetY;
+      const pointerDistance = Math.hypot(pointer.x - screenX, pointer.y - screenY);
+
+      let desiredPull = 0;
+      if (pointer.active && !escaped) {
+        if (!glyph.captured) {
+          const proximity = 1 - clamp(pointerDistance / MAGNET_RADIUS, 0, 1);
+          desiredPull = smoothstep(proximity);
+          if (pointerDistance <= CAPTURE_DISTANCE) {
+            glyph.captured = true;
+            glyph.el.classList.add('swarm-captured');
+          }
+        }
+        if (glyph.captured) desiredPull = 1;
+      }
+
+      const pullRate = desiredPull > glyph.pull ? GATHER_RATE : RELEASE_RATE;
+      glyph.pull += (desiredPull - glyph.pull) * (1 - Math.exp(-deltaSeconds * pullRate));
+      const targetX = idleX + (gatheredX - idleX) * glyph.pull;
+      const targetY = idleY + (gatheredY - idleY) * glyph.pull;
 
       // A damped spring gives the swarm weight. The velocity cap is the physical
       // reason a fast pointer can escape while a slow one is eventually caught.
