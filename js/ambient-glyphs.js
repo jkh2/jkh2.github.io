@@ -91,7 +91,13 @@
       phase,
       clusterX: Math.cos(phase) * (6 + (index % 4) * 4),
       clusterY: Math.sin(phase) * (6 + (index % 4) * 4),
-      spring: 8 + (index % 3) * 0.8
+      spring: 8 + (index % 3) * 0.8,
+      wanderX: 0,
+      wanderY: 0,
+      wanderTargetX: Math.cos(phase * 1.3) * (18 + (index % 5) * 4),
+      wanderTargetY: Math.sin(phase * 1.3) * (18 + (index % 5) * 4),
+      nextWanderAt: performance.now() + 1800 + (index % 7) * 310,
+      randomState: Math.imul(index + 1, 0x9e3779b1) >>> 0
     };
   }
 
@@ -117,7 +123,7 @@
   // A fast sweep trips a short escape latch. The pause prevents the swarm from
   // immediately reacquiring a pointer that has just outrun it.
   const FULL_PULL_SPEED = 220; // pixels per second
-  const ESCAPE_TRIGGER_SPEED = 720;
+  const ESCAPE_TRIGGER_SPEED = 880;
   const ESCAPE_COOLDOWN_MS = 2200;
   const GATHER_RATE = 2.2;
   const RELEASE_RATE = 7;
@@ -136,6 +142,11 @@
   function smoothstep(value) {
     const t = clamp(value, 0, 1);
     return t * t * (3 - 2 * t);
+  }
+
+  function nextRandom(glyph) {
+    glyph.randomState = (Math.imul(glyph.randomState, 1664525) + 1013904223) >>> 0;
+    return glyph.randomState / 4294967296;
   }
 
   function handlePointerMove(event) {
@@ -223,12 +234,23 @@
       const homeX = (glyph.homeXPct / 100) * window.innerWidth;
       const homeY = (glyph.homeYPct / 100) * window.innerHeight;
 
-      // Two low-frequency waves keep released symbols subtly afloat rather than
-      // pinning them to an obviously static grid.
-      const idleX = Math.sin(seconds * 0.24 + glyph.phase) * 9
-        + Math.sin(seconds * 0.11 + glyph.phase * 1.7) * 4;
-      const idleY = Math.cos(seconds * 0.2 + glyph.phase * 0.8) * 8
-        + Math.sin(seconds * 0.13 + glyph.phase * 1.3) * 5;
+      // Each released glyph chooses a new bounded waypoint on its own schedule.
+      // Easing between those points produces organic wandering without jitter.
+      if (now >= glyph.nextWanderAt) {
+        const angle = nextRandom(glyph) * Math.PI * 2;
+        const radius = 18 + nextRandom(glyph) * 22;
+        glyph.wanderTargetX = Math.cos(angle) * radius;
+        glyph.wanderTargetY = Math.sin(angle) * radius;
+        glyph.nextWanderAt = now + 2400 + nextRandom(glyph) * 2800;
+      }
+      const wanderEase = 1 - Math.exp(-deltaSeconds * 0.8);
+      glyph.wanderX += (glyph.wanderTargetX - glyph.wanderX) * wanderEase;
+      glyph.wanderY += (glyph.wanderTargetY - glyph.wanderY) * wanderEase;
+
+      // A faint independent bob prevents the waypoint paths from reading as
+      // straight lines, while the randomized wander supplies the larger motion.
+      const idleX = glyph.wanderX + Math.sin(seconds * 0.31 + glyph.phase) * 3;
+      const idleY = glyph.wanderY + Math.cos(seconds * 0.27 + glyph.phase * 0.8) * 3;
 
       const gatheredX = pointer.x - homeX + glyph.clusterX;
       const gatheredY = pointer.y - homeY + glyph.clusterY;
