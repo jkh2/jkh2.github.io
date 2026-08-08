@@ -162,6 +162,19 @@
   let glowingGlyphs = [];
   let lastFrameAt = performance.now();
 
+  // Site-wide easter egg: a real glyph capture-and-click gets a quiet sound,
+  // once per page load, on every page that includes this shared file. Root-
+  // relative path so it resolves the same from any folder depth.
+  const swarmSound = new Audio('/assets/audio/sound1b.mp3');
+  swarmSound.volume = 0.4;
+  swarmSound.preload = 'auto';
+  let swarmSoundPlayedThisLoad = false;
+  function playSwarmSound() {
+    if (swarmSoundPlayedThisLoad) return;
+    swarmSoundPlayedThisLoad = true;
+    swarmSound.play().catch(() => {});
+  }
+
   function clamp(value, min, max) {
     return Math.min(max, Math.max(min, value));
   }
@@ -252,6 +265,8 @@
     }, 0);
 
     if (nearbyCount === 0) return;
+
+    playSwarmSound();
 
     if (afterglowTimer !== null) {
       clearTimeout(afterglowTimer);

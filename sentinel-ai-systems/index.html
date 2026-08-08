@@ -623,6 +623,28 @@
       sasLogo.addEventListener('touchend', () => sasLogo.classList.remove('touch-active'));
       sasLogo.addEventListener('touchcancel', () => sasLogo.classList.remove('touch-active'));
     }
+
+    // Page-scoped: the hero seal gets a sound on hover, once per page load.
+    // Index-only, since the seal element only exists on this page. The glyph
+    // swarm's own click-triggered sound lives in ambient-glyphs.js instead —
+    // that one is intentionally site-wide.
+    (function () {
+      const sound1b = new Audio('/assets/audio/sound1b.mp3');
+      sound1b.volume = 0.4;
+      sound1b.preload = 'auto';
+      let hasPlayedThisLoad = false;
+      function playSound1b() {
+        if (hasPlayedThisLoad) return;
+        hasPlayedThisLoad = true;
+        // A bare mouseenter isn't always a qualifying "user gesture" for audio
+        // autoplay on the very first interaction — browsers may reject play()
+        // until the visitor has clicked something once. Fail silently rather
+        // than throw an unhandled promise rejection into the console.
+        sound1b.play().catch(() => {});
+      }
+      const sasSealBlock = document.querySelector('.sas-seal-block');
+      if (sasSealBlock) sasSealBlock.addEventListener('mouseenter', playSound1b);
+    })();
   </script>
 </body>
 </html>
