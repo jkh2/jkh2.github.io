@@ -163,16 +163,25 @@
   let lastFrameAt = performance.now();
 
   // Site-wide easter egg: a real glyph capture-and-click gets a quiet sound,
-  // once per page load, on every page that includes this shared file. Root-
-  // relative path so it resolves the same from any folder depth.
+  // every time it happens (not once-per-load — James's call, since each
+  // light-up is its own discovery, unlike the one-shot hero-seal greeting).
+  // Root-relative path so it resolves the same from any folder depth.
   const swarmSound = new Audio('/assets/audio/sound1b.mp3');
   swarmSound.volume = 0.4;
   swarmSound.preload = 'auto';
-  let swarmSoundPlayedThisLoad = false;
   function playSwarmSound() {
-    if (swarmSoundPlayedThisLoad) return;
-    swarmSoundPlayedThisLoad = true;
-    swarmSound.play().catch(() => {});
+    // Skip only while the previous play is still actually going, so a click
+    // mid-clip doesn't restack overlapping copies. This is NOT a permanent
+    // once-only lock — a bug in the prior version set a "played" flag before
+    // ever confirming play() succeeded, so one silently-failed first attempt
+    // (autoplay policy, a slow first load, anything) would look identical to
+    // "never works" for the rest of the page's life. Resetting currentTime
+    // instead means every real click gets a real, fresh attempt.
+    if (!swarmSound.paused) return;
+    swarmSound.currentTime = 0;
+    swarmSound.play().catch((err) => {
+      if (window.__glyphSoundDebug) console.warn('[ambient-glyphs] swarmSound.play() failed:', err);
+    });
   }
 
   function clamp(value, min, max) {
