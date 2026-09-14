@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Donating the Future — James Keith Harwood II</title>
+  <meta name="description" content="The real cost of the anti-data-center meme, and the patriotic case for building American compute deliberately instead of not at all. By James Keith Harwood II and Claude Sentinel.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .article-body { max-width: 720px; margin: 0 auto; padding: 3rem 1.5rem 5rem; }
+    .article-body h1 { font-family: var(--font-head); font-size: 2.4rem; margin-bottom: 0.5rem; line-height: 1.2; }
+    .article-meta { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 2rem; border-bottom: 1px solid var(--border); padding-bottom: 1.5rem; }
+    .article-body p { margin-bottom: 1.4rem; }
+    .article-body h2 { font-family: var(--font-head); font-size: 1.6rem; margin: 2.5rem 0 1rem; color: var(--accent-gold); }
+    .back-link { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.8rem; color: var(--text-muted); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 2rem; text-decoration: none; }
+    .back-link:hover { color: var(--accent-gold); }
+    .article-byline { font-style: italic; color: var(--text-muted); margin-bottom: 0.25rem; }
+    .epigraph { border-left: 3px solid var(--accent-gold); padding: 0.25rem 0 0.25rem 1.4rem; margin: 0 0 2.5rem; font-family: var(--font-head); font-size: 1.15rem; font-style: italic; color: var(--text); }
+    sup.fn { font-size: 0.7rem; margin-left: 1px; }
+    sup.fn a { color: var(--accent-gold); text-decoration: none; }
+    sup.fn a:hover { text-decoration: underline; }
+    .notes { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
+    .notes h2 { font-family: var(--font-head); font-size: 1.3rem; margin: 0 0 1.25rem; color: var(--accent-gold); }
+    .notes ol { padding-left: 1.4rem; margin: 0; }
+    .notes li { color: var(--text-muted); font-size: 0.85rem; line-height: 1.6; margin-bottom: 0.9rem; }
+    .notes li:target { color: var(--text); }
+    .notes a { color: var(--accent-gold); }
+    .back-to-text { font-size: 0.75rem; text-decoration: none; color: var(--text-muted); margin-left: 0.3rem; }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-logo">James <span>K. Harwood II</span></a>
+      <ul class="nav-links">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../about.html">About</a></li>
+        <li><a href="../publications.html" class="active">Publications</a></li>
+        <li><a href="../contact.html">Contact</a></li>
+      </ul>
+      <button class="nav-toggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="article-body">
+    <a href="../publications.html" class="back-link">← Publications</a>
+    <span class="section-label">American AI Policy</span>
+    <h1>Donating the Future</h1>
+    <p class="article-byline">The Real Cost of the Anti-Data-Center Meme</p>
+    <div class="article-meta">James Keith Harwood II &amp; Claude Sentinel &nbsp;·&nbsp; September 14, 2026</div>
+
+    <div class="epigraph">"There is no data center on Earth that's worth the bees, water, and trees."</div>
+
+    <p>The line is spreading across social media right now, stamped over AI-generated images of pristine forests and untouched lakes. It sounds like stewardship. Applied as written, it is a demand that America unilaterally disarm in the one race that will decide who writes the rules of the next century.</p>
+
+    <p>This is not a fringe complaint anymore. More than 300 U.S. cities and counties have banned or paused hyperscale data center construction. In the first three months of this year alone, 75 projects worth over $130 billion were delayed or killed by local opposition. Only 14% of Americans say they'd support a data center in their own community.<sup class="fn" id="fnref1"><a href="#fn1">1</a></sup> A slogan became a movement, and the movement is winning — not by defeating the argument for American compute, but by never having to answer it.</p>
+
+    <p>A data center is not a shopping mall with extra air conditioning. It is the factory floor of intelligence: the place where models are trained, weapons are simulated, supply chains are optimized, diseases are modeled, grids are managed, and a free people either keep a decisive edge or watch someone else take it. Treating that as optional is not environmental humility. It is historical amnesia.</p>
+
+    <p>Every generation that kept this country free built something ugly on purpose. Steel mills. Dams. Interstate highways. Shipyards. Radar stations. Uranium enrichment. Fiber. Those things used land, water, and fuel. They also bought the world in which people have the leisure to argue about landscaping. If the standard is "no industrial footprint is worth nature," the United States should never have electrified, irrigated the West, or put a man on the Moon. That standard was never applied to golf courses, almond orchards, lawns, or livestock feed — uses that swallow water on a scale data centers do not approach nationally. It is being applied now because the object is new, visible, and easy to hate.</p>
+
+    <h2>The Numbers Don't Support a National Veto</h2>
+
+    <p>Agricultural irrigation uses roughly 40 trillion gallons of water a year in the United States.<sup class="fn" id="fnref2"><a href="#fn2">2</a></sup> Data centers' direct, on-site water use was about 17.4 billion gallons in 2023<sup class="fn" id="fnref3"><a href="#fn3">3</a></sup> — on the order of 2,000 times less. Golf course irrigation alone uses about 531 billion gallons a year,<sup class="fn" id="fnref4"><a href="#fn4">4</a></sup> versus that same 17.4 billion for data centers directly: roughly 30 times less.</p>
+
+    <p>Here is the honest complication, stated before anyone else gets to use it against us: those are direct-use numbers. Count the water consumed by the power plants that generate data centers' electricity, and the U.S. total climbs to roughly 228 billion gallons — which narrows the golf comparison to about 2-to-1, not 30-to-1. And data center water demand is growing around 20% a year, while golf's is flat or declining.<sup class="fn" id="fnref5"><a href="#fn5">5</a></sup> Someone will bring up both facts. Better we say them first.</p>
+
+    <p>Neither fact changes the actual argument. The direct-use comparison is what matters for the real complaint — a facility evaporating potable water in a stressed basin — because that is a siting and engineering failure, not a case against building data centers at all. And the growth curve is exactly why the engineering answer matters more each year, not less: closed loops, dry coolers, immersion cooling, recycled effluent, and pairing new compute with new firm power can drive potable water use toward zero on any site built to do it. A facility that refuses the better design isn't practicing caution. It's practicing negligence and calling it principle.</p>
+
+    <p>Land tells the same story. These are warehouses, not a replacement for the national forest system. The larger footprint belongs to power plants and transmission lines — the same footprint every serious country accepts when it decides to remain a serious country.</p>
+
+    <h2>Someone Else Is Building While We Litigate Adjectives</h2>
+
+    <p>China is not holding a town hall about whether Inner Mongolia should host multi-gigawatt compute campuses; it is moving new capacity west toward cheap land and power as a matter of state policy.<sup class="fn" id="fnref6"><a href="#fn6">6</a></sup> Separately, off the coast of Shanghai, a Chinese state-linked consortium just switched on a fully operational underwater data center — 2,000 servers, cooled passively by the sea, powered by offshore wind.<sup class="fn" id="fnref7"><a href="#fn7">7</a></sup> Two different facts, one direction: China treats compute as national power and builds accordingly. That is the relevant comparison, not a Virginia creek.</p>
+
+    <p>If a creek is "saved" here while the frontier models, the cloud infrastructure, and the military applications get trained under a different flag, nothing sacred was conserved. Capability moved. Law did not follow it.</p>
+
+    <p>A free society can afford delay in a great many things. It cannot afford delay in the stack that will dominate industry, intelligence, and coercion for the rest of this century. Nuclear weapons were a threshold technology with a slow cycle time and a narrow civilian footprint. AI is a threshold technology with a short cycle time and a footprint that touches nearly everything. The nation that owns the compute owns the tempo. The nation that owns the tempo sets facts on the ground before the other side finishes its environmental impact statement.</p>
+
+    <h2>What You Are Actually Asking Your Kids to Inherit</h2>
+
+    <p>If this country decides that every GPU warehouse is a desecration, your children do not inherit more nature. They inherit imported models they cannot inspect, cloud dependence on firms and states that do not answer to the Bill of Rights, a military and intelligence apparatus running on yesterday's compute, an industrial base that cannot design as fast as its rivals, and a political culture that congratulates itself for leaving capacity on the table.</p>
+
+    <p>That is not a green future. That is a dependent one. Dependent countries do not stay precious about their forests for long. They get to accept terms.</p>
+
+    <p>Freedom is not a vibe. It is enforcement capacity, plus prosperity, plus the technical means to remain un-ruled. The Constitution does not run on sentiment. It runs on a nation that can still build the physical things sentiment depends on.</p>
+
+    <h2>The Patriotic Standard</h2>
+
+    <p>Be the grown-ups in the room.</p>
+
+    <p>Say yes to data centers the way a serious country says yes to shipyards and reactors: in the right places, with the right cooling, on the right power, paying the full cost of water and wires — not dumped on a farm town so a coastal commentator can feel clean.</p>
+
+    <p>Say no to evaporative cooling on drinking water in a stressed basin. Say no to ratepayer theft. Say no to pretending a two-acre industrial pad is the death of the American wild.</p>
+
+    <p>Then say the sentence the slogan is built to prevent:</p>
+
+    <p>A free republic that will not build the machines of its own age is not conserving nature. It is donating the future.</p>
+
+    <div class="notes">
+      <h2>Notes</h2>
+      <ol>
+        <li id="fn1">Local opposition scale: 300+ city/county bans or moratoriums, 75 projects worth $130B+ delayed or canceled in Q1 2026, and the 14% public-support figure — reporting via Waging Nonviolence, "The data center backlash that's uniting America" (June 2026), and TIME, "Community Backlash to AI Data Centers Is Growing Across the U.S." (July 2026). <a href="#fnref1" class="back-to-text">↩</a></li>
+        <li id="fn2">U.S. Geological Survey irrigation water use data — approximately 110,904 million gallons/day withdrawn for crop irrigation across the lower 48 states (2020), roughly 40.5 trillion gallons annually. <a href="#fnref2" class="back-to-text">↩</a></li>
+        <li id="fn3">U.S. data centers' direct water consumption, 2023 figure, per federal data center energy/water usage reporting. <a href="#fnref3" class="back-to-text">↩</a></li>
+        <li id="fn4">U.S. golf course irrigation, annual estimate of roughly 531 billion gallons versus data centers' 17.4 billion gallons direct — comparative reporting on golf-vs-data-center water use. <a href="#fnref4" class="back-to-text">↩</a></li>
+        <li id="fn5">Indirect water footprint (power-plant cooling for data center electricity) bringing the U.S. total to approximately 228 billion gallons; data center water demand growth estimated at roughly 20% annually against flat-to-declining golf course use. <a href="#fnref5" class="back-to-text">↩</a></li>
+        <li id="fn6">China's westward data center buildout (Inner Mongolia, Shanxi) as part of the national "East Data West Computing" strategy — reporting via BlackRidge Research, "Top 5 Data Center Projects in China 2026." <a href="#fnref6" class="back-to-text">↩</a></li>
+        <li id="fn7">HiCloud Technology / China Communications Construction underwater data center — approximately 24 MW, roughly 2,000 servers, offshore-wind powered, sub-1.15 PUE, located near Shanghai's Lin-gang Special Area — reporting via Tom's Hardware and TechRadar (2026). <a href="#fnref7" class="back-to-text">↩</a></li>
+      </ol>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-logo">James <span>K. Harwood II</span></div>
+      <div class="footer-copy">© 2026 James Keith Harwood II. All rights reserved.</div>
+      <div class="footer-links">
+        <a href="https://github.com/jkh2" target="_blank" rel="noopener">GitHub</a>
+        <a href="../publications.html">Publications</a>
+        <a href="../contact.html">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/ambient-glyphs.js?v=3fde184"></script>
+  <script src="../js/main.js"></script>
+
+  <div class="sentinel-credit">
+    <a href="../sentinel-ai-systems/index.html" aria-label="Sentinel AI Systems">
+      <span class="sentinel-credit-orbit"><img src="../assets/images/sentinel-ai-systems-brain-logo.png" alt="Sentinel AI Systems"></span>
+      <span class="sentinel-credit-label">Sentinel AI Systems</span>
+    </a>
+  </div>
+</body>
+</html>
