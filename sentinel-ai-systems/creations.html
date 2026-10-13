@@ -100,7 +100,8 @@
     .signal-deck {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 18px;
+      column-gap: 28px;
+      row-gap: 40px;
       transform: rotate(1.5deg);
       position: relative;
     }
@@ -113,6 +114,7 @@
       pointer-events: none;
     }
     .signal-tile {
+      display: block;
       position: relative;
       z-index: 1;
       aspect-ratio: 16 / 10;
@@ -121,8 +123,9 @@
       border-radius: 10px;
       background: #05070b;
       box-shadow: 0 18px 50px rgba(0,0,0,0.36);
+      transition: border-color 0.35s ease, box-shadow 0.35s ease;
     }
-    .signal-tile:nth-child(1), .signal-tile:nth-child(4) { transform: translateY(16px); }
+    .signal-tile:nth-child(1), .signal-tile:nth-child(4) { transform: translateY(10px); }
     .signal-tile img {
       width: 100%;
       height: 100%;
@@ -135,6 +138,14 @@
       transform: scale(1.045);
       opacity: 1;
       filter: saturate(1) contrast(1.04);
+    }
+    .signal-tile:hover {
+      border-color: rgba(201,168,76,0.62);
+      box-shadow: 0 22px 58px rgba(0,0,0,0.42), 0 0 24px rgba(201,168,76,0.08);
+    }
+    .signal-tile:focus-visible {
+      outline: 2px solid var(--accent-gold);
+      outline-offset: 5px;
     }
     .signal-tile::after {
       content: '';
@@ -177,12 +188,17 @@
       border-radius: 12px;
       overflow: hidden;
       position: relative;
+      scroll-margin-top: 110px;
       transition: transform 0.4s cubic-bezier(.16,1,.3,1), border-color 0.35s ease, box-shadow 0.35s ease;
     }
     .creation-card:hover {
       transform: translateY(-5px);
       border-color: rgba(201,168,76,0.55);
       box-shadow: 0 22px 56px rgba(0,0,0,0.34), 0 0 34px rgba(201,168,76,0.055);
+    }
+    .creation-card:target {
+      border-color: rgba(201,168,76,0.78);
+      box-shadow: 0 22px 60px rgba(0,0,0,0.38), 0 0 42px rgba(201,168,76,0.1);
     }
     .creation-image-link {
       display: block;
@@ -352,14 +368,14 @@
     }
     @media (max-width: 560px) {
       .creations-hero { padding-top: 118px; }
-      .signal-deck { gap: 10px; }
-      .signal-tile:nth-child(1), .signal-tile:nth-child(4) { transform: translateY(8px); }
+      .signal-deck { column-gap: 16px; row-gap: 22px; }
+      .signal-tile:nth-child(1), .signal-tile:nth-child(4) { transform: translateY(5px); }
       .creation-actions { align-items: flex-start; flex-direction: column; }
       .living-collection { grid-template-columns: 1fr; }
       .living-mark { width: 72px; }
     }
     @media (prefers-reduced-motion: reduce) {
-      .creation-card, .creation-image-link img, .signal-tile img { transition: none; }
+      .creation-card, .creation-image-link img, .signal-tile, .signal-tile img { transition: none; }
     }
   </style>
 </head>
@@ -399,10 +415,10 @@
       </div>
 
       <div class="signal-deck" aria-label="Selected project artwork">
-        <div class="signal-tile"><img src="../assets/images/creations/cymatic-cosmos.png" alt="Cymatic Cosmos living smoke instrument"></div>
-        <div class="signal-tile"><img src="../assets/images/creations/navier-stokes-laboratory.jpg" alt="Navier-Stokes Laboratory Sentinel seal"></div>
-        <div class="signal-tile"><img src="../assets/images/creations/lakeshore-exit.jpg" alt="Lakeshore Exit title artwork"></div>
-        <div class="signal-tile"><img src="../assets/images/creations/primordial-sim.png" alt="Primordial Sim emergent life artwork"></div>
+        <a class="signal-tile" href="#cymatic-cosmos" aria-label="Jump to Cymatic Cosmos details"><img src="../assets/images/creations/cymatic-cosmos.png" alt="Cymatic Cosmos living smoke instrument"></a>
+        <a class="signal-tile" href="#navier-stokes-laboratory" aria-label="Jump to Navier-Stokes Laboratory details"><img src="../assets/images/creations/navier-stokes-laboratory.jpg" alt="Navier-Stokes Laboratory Sentinel seal"></a>
+        <a class="signal-tile" href="#lakeshore-exit" aria-label="Jump to Lakeshore Exit details"><img src="../assets/images/creations/lakeshore-exit.jpg" alt="Lakeshore Exit title artwork"></a>
+        <a class="signal-tile" href="#primordial-sim" aria-label="Jump to Primordial Sim details"><img src="../assets/images/creations/primordial-sim.png" alt="Primordial Sim emergent life artwork"></a>
       </div>
     </div>
   </header>
@@ -420,7 +436,7 @@
       </div>
 
       <div class="creation-grid">
-        <article class="creation-card scroll-reveal">
+        <article class="creation-card scroll-reveal" id="cymatic-cosmos" tabindex="-1">
           <a class="creation-image-link" href="https://jkh2.github.io/cymatic-cosmos/" target="_blank" rel="noopener noreferrer" aria-label="Launch Cymatic Cosmos">
             <span class="creation-type">Interactive Instrument</span>
             <img src="../assets/images/creations/cymatic-cosmos.png" alt="Colored cymatic figures and orbiting voices inside the Cymatic Cosmos smoke simulation">
@@ -439,7 +455,7 @@
           </div>
         </article>
 
-        <article class="creation-card scroll-reveal">
+        <article class="creation-card scroll-reveal" id="navier-stokes-laboratory" tabindex="-1">
           <a class="creation-image-link" href="https://navier-stokes-laboratory.vercel.app" target="_blank" rel="noopener noreferrer" aria-label="Launch Navier-Stokes Laboratory">
             <span class="creation-type">Scientific Laboratory</span>
             <img src="../assets/images/creations/navier-stokes-laboratory.jpg" alt="Golden Sentinel seal for the Navier-Stokes Laboratory">
@@ -458,7 +474,7 @@
           </div>
         </article>
 
-        <article class="creation-card scroll-reveal">
+        <article class="creation-card scroll-reveal" id="lakeshore-exit" tabindex="-1">
           <a class="creation-image-link" href="../games/lakeshore-exit/" target="_blank" rel="noopener noreferrer" aria-label="Play Lakeshore Exit">
             <span class="creation-type">First-Person Game</span>
             <img src="../assets/images/creations/lakeshore-exit.jpg" alt="Lakeshore Exit title artwork over a dark lakeside road">
@@ -477,7 +493,7 @@
           </div>
         </article>
 
-        <article class="creation-card scroll-reveal">
+        <article class="creation-card scroll-reveal" id="primordial-sim" tabindex="-1">
           <a class="creation-image-link contain-art" href="https://jkh2.github.io/Primordial-Sim/" target="_blank" rel="noopener noreferrer" aria-label="Launch Primordial Sim">
             <span class="creation-type">Artificial Life</span>
             <img src="../assets/images/creations/primordial-sim.png" alt="Colorful emergent artificial organisms in Primordial Sim">
@@ -534,6 +550,30 @@
         creationsToggle.setAttribute('aria-expanded', document.querySelector('.nav-links').classList.contains('open') ? 'true' : 'false');
       });
     }
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const moveToCreation = (hash, updateHistory = false) => {
+      const target = document.querySelector(hash);
+      if (!target) return;
+
+      if (updateHistory) history.pushState(null, '', hash);
+      target.focus({ preventScroll: true });
+      target.scrollIntoView({
+        behavior: prefersReducedMotion.matches ? 'auto' : 'smooth',
+        block: 'start'
+      });
+    };
+
+    document.querySelectorAll('.signal-tile[href^="#"]').forEach(link => {
+      link.addEventListener('click', event => {
+        event.preventDefault();
+        moveToCreation(link.hash, true);
+      });
+    });
+
+    window.addEventListener('load', () => {
+      if (window.location.hash) moveToCreation(window.location.hash);
+    });
   </script>
 
   <div class="sentinel-credit">
