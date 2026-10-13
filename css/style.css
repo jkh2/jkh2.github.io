@@ -119,6 +119,12 @@ nav {
 .nav-links a:hover,
 .nav-links a.active { color: var(--accent-gold); }
 
+/* Sentinel AI Systems carries one additional section link. Keep its desktop
+   navigation compact, then move cleanly to the menu before labels can wrap. */
+.sas-site-nav .nav-links {
+  gap: clamp(0.85rem, 1.45vw, 1.55rem);
+}
+
 .nav-toggle {
   display: none;
   background: none;
@@ -798,6 +804,23 @@ footer {
   .about-pillars { grid-template-columns: 1fr; }
 
   .footer-inner { flex-direction: column; align-items: flex-start; }
+}
+
+@media (min-width: 769px) and (max-width: 1040px) {
+  .sas-site-nav .nav-links {
+    display: none;
+    position: absolute;
+    top: 68px;
+    left: 0;
+    right: 0;
+    background: var(--bg-nav);
+    border-bottom: 1px solid var(--border);
+    flex-direction: column;
+    padding: 1.5rem 2rem;
+    gap: 1.25rem;
+  }
+  .sas-site-nav .nav-links.open { display: flex; }
+  .sas-site-nav .nav-toggle { display: flex; }
 }
 
 /* ---- Ambient background glyphs (interactive speed-sensitive swarm) ---- */

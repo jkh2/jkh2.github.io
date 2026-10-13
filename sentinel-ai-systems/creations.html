@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Games, Labs &amp; Tools | Sentinel AI Systems</title>
+  <meta name="description" content="Explore interactive games, scientific laboratories, simulations, and creative tools built through Sentinel AI Systems human-AI collaboration.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .creations-hero {
+      min-height: 88vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      padding: 136px 0 82px;
+    }
+    .creations-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 70% at 18% 18%, rgba(74,158,255,0.12), transparent 66%),
+        radial-gradient(ellipse 65% 70% at 84% 42%, rgba(201,168,76,0.12), transparent 68%),
+        linear-gradient(180deg, rgba(7,9,15,0.08), var(--bg));
+      pointer-events: none;
+    }
+    .creations-hero::after {
+      content: '';
+      position: absolute;
+      inset: 68px 0 0;
+      background-image:
+        linear-gradient(rgba(201,168,76,0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(201,168,76,0.035) 1px, transparent 1px);
+      background-size: 72px 72px;
+      mask-image: radial-gradient(ellipse 75% 80% at 50% 35%, black 0%, transparent 78%);
+      pointer-events: none;
+    }
+    .creations-hero-inner {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(380px, 1.05fr);
+      gap: clamp(3rem, 7vw, 6rem);
+      align-items: center;
+    }
+    .creations-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.8rem;
+      color: var(--accent-gold);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      margin-bottom: 1.4rem;
+    }
+    .creations-kicker::before {
+      content: '';
+      width: 34px;
+      height: 1px;
+      background: var(--accent-gold);
+      box-shadow: 0 0 10px rgba(201,168,76,0.55);
+    }
+    .creations-title {
+      font-size: clamp(3.5rem, 7vw, 6.6rem);
+      line-height: 0.9;
+      letter-spacing: -0.025em;
+      margin-bottom: 1.7rem;
+    }
+    .creations-title span {
+      display: block;
+      color: var(--accent-gold);
+      font-style: italic;
+      font-weight: 400;
+    }
+    .creations-lede {
+      max-width: 650px;
+      color: rgba(228,232,240,0.82);
+      font-family: var(--font-head);
+      font-size: clamp(1.08rem, 2vw, 1.34rem);
+      line-height: 1.72;
+    }
+    .creations-note {
+      max-width: 620px;
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      line-height: 1.75;
+      margin-top: 1.3rem;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.9rem;
+      margin-top: 2rem;
+    }
+    .signal-deck {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      transform: rotate(1.5deg);
+      position: relative;
+    }
+    .signal-deck::before {
+      content: '';
+      position: absolute;
+      inset: 14% 8%;
+      background: rgba(201,168,76,0.18);
+      filter: blur(64px);
+      pointer-events: none;
+    }
+    .signal-tile {
+      position: relative;
+      z-index: 1;
+      aspect-ratio: 16 / 10;
+      overflow: hidden;
+      border: 1px solid rgba(201,168,76,0.28);
+      border-radius: 10px;
+      background: #05070b;
+      box-shadow: 0 18px 50px rgba(0,0,0,0.36);
+    }
+    .signal-tile:nth-child(1), .signal-tile:nth-child(4) { transform: translateY(16px); }
+    .signal-tile img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.83;
+      filter: saturate(0.82) contrast(1.06);
+      transition: transform 0.65s cubic-bezier(.16,1,.3,1), opacity 0.45s ease, filter 0.45s ease;
+    }
+    .signal-tile:hover img {
+      transform: scale(1.045);
+      opacity: 1;
+      filter: saturate(1) contrast(1.04);
+    }
+    .signal-tile::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.025);
+      pointer-events: none;
+    }
+    .collection-section {
+      padding-top: 92px;
+      background:
+        radial-gradient(ellipse 55% 35% at 50% 0%, rgba(74,158,255,0.055), transparent 72%);
+    }
+    .collection-heading {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(280px, 0.62fr);
+      gap: 3rem;
+      align-items: end;
+      margin-bottom: 3rem;
+    }
+    .collection-heading .section-title { margin-bottom: 0; }
+    .collection-heading p {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      line-height: 1.75;
+    }
+    .creation-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.5rem;
+    }
+    .creation-card {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,0.018), transparent 42%),
+        var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+      transition: transform 0.4s cubic-bezier(.16,1,.3,1), border-color 0.35s ease, box-shadow 0.35s ease;
+    }
+    .creation-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(201,168,76,0.55);
+      box-shadow: 0 22px 56px rgba(0,0,0,0.34), 0 0 34px rgba(201,168,76,0.055);
+    }
+    .creation-image-link {
+      display: block;
+      position: relative;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      background: #04060a;
+      border-bottom: 1px solid var(--border);
+    }
+    .creation-image-link::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 56%, rgba(7,9,15,0.42));
+      pointer-events: none;
+    }
+    .creation-image-link img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.7s cubic-bezier(.16,1,.3,1), filter 0.5s ease;
+    }
+    .creation-image-link.contain-art img {
+      object-fit: contain;
+    }
+    .creation-card:hover .creation-image-link img {
+      transform: scale(1.035);
+      filter: saturate(1.08);
+    }
+    .creation-type {
+      position: absolute;
+      z-index: 2;
+      top: 1rem;
+      left: 1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.4rem 0.68rem;
+      border: 1px solid rgba(201,168,76,0.32);
+      border-radius: 999px;
+      background: rgba(7,9,15,0.8);
+      backdrop-filter: blur(8px);
+      color: #efd78d;
+      font-size: 0.64rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+    .creation-type::before {
+      content: '';
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--accent-gold);
+      box-shadow: 0 0 8px rgba(201,168,76,0.9);
+    }
+    .creation-body {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      padding: clamp(1.55rem, 3vw, 2rem);
+    }
+    .creation-index {
+      color: var(--accent-blue);
+      font-family: monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      margin-bottom: 0.72rem;
+    }
+    .creation-body h2 {
+      font-size: clamp(1.65rem, 3vw, 2.2rem);
+      color: var(--text);
+      margin-bottom: 0.85rem;
+    }
+    .creation-body p {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      line-height: 1.78;
+      margin-bottom: 1.35rem;
+    }
+    .creation-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: auto;
+      margin-bottom: 1.55rem;
+    }
+    .creation-tags span {
+      padding: 0.34rem 0.62rem;
+      border: 1px solid rgba(74,158,255,0.17);
+      border-radius: 4px;
+      color: rgba(228,232,240,0.66);
+      background: rgba(74,158,255,0.035);
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .creation-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding-top: 1.2rem;
+      border-top: 1px solid var(--border);
+    }
+    .creation-actions small {
+      color: var(--text-muted);
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .launch-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      color: var(--accent-gold);
+      font-size: 0.76rem;
+      font-weight: 600;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .launch-link span { transition: transform 0.25s ease; }
+    .launch-link:hover span { transform: translate(2px, -2px); }
+    .living-collection {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 2rem;
+      padding: clamp(2rem, 5vw, 3.4rem);
+      background:
+        linear-gradient(135deg, rgba(201,168,76,0.085), rgba(74,158,255,0.035)),
+        var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+    }
+    .living-collection h2 {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      margin-bottom: 0.7rem;
+    }
+    .living-collection p {
+      max-width: 720px;
+      color: var(--text-muted);
+      line-height: 1.75;
+    }
+    .living-mark {
+      width: 92px;
+      aspect-ratio: 1;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(201,168,76,0.38);
+      transform: rotate(45deg);
+      color: var(--accent-gold);
+      box-shadow: inset 0 0 32px rgba(201,168,76,0.05), 0 0 24px rgba(201,168,76,0.06);
+    }
+    .living-mark span {
+      transform: rotate(-45deg);
+      font-family: var(--font-head);
+      font-size: 1.8rem;
+    }
+    @media (max-width: 900px) {
+      .creations-hero { min-height: auto; }
+      .creations-hero-inner { grid-template-columns: 1fr; }
+      .signal-deck { max-width: 680px; transform: none; }
+      .collection-heading { grid-template-columns: 1fr; gap: 1.2rem; }
+      .creation-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 560px) {
+      .creations-hero { padding-top: 118px; }
+      .signal-deck { gap: 10px; }
+      .signal-tile:nth-child(1), .signal-tile:nth-child(4) { transform: translateY(8px); }
+      .creation-actions { align-items: flex-start; flex-direction: column; }
+      .living-collection { grid-template-columns: 1fr; }
+      .living-mark { width: 72px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .creation-card, .creation-image-link img, .signal-tile img { transition: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="sas-site-nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">Sentinel <span>AI Systems</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="principles.html">Principles</a></li>
+        <li><a href="claude.html">Claude</a></li>
+        <li><a href="orion.html">Orion</a></li>
+        <li><a href="grok.html">Grok</a></li>
+        <li><a href="sidlf.html">SIDLF</a></li>
+        <li><a href="creations.html" class="active">Creations</a></li>
+        <li><a href="../contact.html">Contact</a></li>
+        <li><a href="../index.html" style="font-size:0.8rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);">&larr; JKH II</a></li>
+      </ul>
+      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <header class="creations-hero">
+    <div class="container creations-hero-inner">
+      <div>
+        <div class="creations-kicker">Built Together &middot; Open in Browser</div>
+        <h1 class="creations-title">Games, Labs <span>&amp; Tools</span></h1>
+        <p class="creations-lede">A living collection of playable worlds, scientific experiments, and creative instruments built through human&ndash;AI partnership.</p>
+        <p class="creations-note">These are selected works, not an automatic feed of everything we make. We will add new projects when we decide together that they belong here.</p>
+        <div class="hero-actions">
+          <a href="#collection" class="btn btn-primary">Explore the Collection</a>
+          <a href="index.html" class="btn btn-outline">About Sentinel</a>
+        </div>
+      </div>
+
+      <div class="signal-deck" aria-label="Selected project artwork">
+        <div class="signal-tile"><img src="../assets/images/creations/cymatic-cosmos.png" alt="Cymatic Cosmos living smoke instrument"></div>
+        <div class="signal-tile"><img src="../assets/images/creations/navier-stokes-laboratory.jpg" alt="Navier-Stokes Laboratory Sentinel seal"></div>
+        <div class="signal-tile"><img src="../assets/images/creations/lakeshore-exit.jpg" alt="Lakeshore Exit title artwork"></div>
+        <div class="signal-tile"><img src="../assets/images/creations/primordial-sim.png" alt="Primordial Sim emergent life artwork"></div>
+      </div>
+    </div>
+  </header>
+
+  <div class="divider"></div>
+
+  <main id="collection" class="collection-section">
+    <div class="container">
+      <div class="collection-heading">
+        <div>
+          <span class="section-label">Selected Creations</span>
+          <h2 class="section-title">Enter the work.</h2>
+        </div>
+        <p>Every project below runs in a modern browser. Some invite play, some experimentation, and some both. Open one and explore it directly.</p>
+      </div>
+
+      <div class="creation-grid">
+        <article class="creation-card scroll-reveal">
+          <a class="creation-image-link" href="https://jkh2.github.io/cymatic-cosmos/" target="_blank" rel="noopener noreferrer" aria-label="Launch Cymatic Cosmos">
+            <span class="creation-type">Interactive Instrument</span>
+            <img src="../assets/images/creations/cymatic-cosmos.png" alt="Colored cymatic figures and orbiting voices inside the Cymatic Cosmos smoke simulation">
+          </a>
+          <div class="creation-body">
+            <div class="creation-index">CREATION / 01</div>
+            <h2>Cymatic Cosmos</h2>
+            <p>A voice-reactive polyrhythmic instrument that writes music into living smoke. Twelve voices trace sacred curves, press cymatic figures into a live fluid simulation, and respond to your hands and voice.</p>
+            <div class="creation-tags">
+              <span>WebGL2</span><span>Web Audio</span><span>Fluid Simulation</span>
+            </div>
+            <div class="creation-actions">
+              <small>No installation required</small>
+              <a class="launch-link" href="https://jkh2.github.io/cymatic-cosmos/" target="_blank" rel="noopener noreferrer">Launch Demo <span aria-hidden="true">&nearr;</span></a>
+            </div>
+          </div>
+        </article>
+
+        <article class="creation-card scroll-reveal">
+          <a class="creation-image-link" href="https://navier-stokes-laboratory.vercel.app" target="_blank" rel="noopener noreferrer" aria-label="Launch Navier-Stokes Laboratory">
+            <span class="creation-type">Scientific Laboratory</span>
+            <img src="../assets/images/creations/navier-stokes-laboratory.jpg" alt="Golden Sentinel seal for the Navier-Stokes Laboratory">
+          </a>
+          <div class="creation-body">
+            <div class="creation-index">CREATION / 02</div>
+            <h2>Navier&ndash;Stokes Laboratory</h2>
+            <p>Stir a two-dimensional incompressible fluid by hand, then explore a qualitative visualization of the 2026 smooth-forced blowup construction. A visual laboratory and analog&mdash;not a proof.</p>
+            <div class="creation-tags">
+              <span>Fluid Dynamics</span><span>WebGL2</span><span>Research</span>
+            </div>
+            <div class="creation-actions">
+              <small>Two interactive experiments</small>
+              <a class="launch-link" href="https://navier-stokes-laboratory.vercel.app" target="_blank" rel="noopener noreferrer">Open Laboratory <span aria-hidden="true">&nearr;</span></a>
+            </div>
+          </div>
+        </article>
+
+        <article class="creation-card scroll-reveal">
+          <a class="creation-image-link" href="../games/lakeshore-exit/" target="_blank" rel="noopener noreferrer" aria-label="Play Lakeshore Exit">
+            <span class="creation-type">First-Person Game</span>
+            <img src="../assets/images/creations/lakeshore-exit.jpg" alt="Lakeshore Exit title artwork over a dark lakeside road">
+          </a>
+          <div class="creation-body">
+            <div class="creation-index">CREATION / 03</div>
+            <h2>Lakeshore Exit</h2>
+            <p>First-person skydiving over Chicago and Lake Michigan. Walk to the aircraft door, exit into open air, fly formation, handle malfunctions, deploy your canopy, and bring the jump home to the beach.</p>
+            <div class="creation-tags">
+              <span>3D Game</span><span>Skydiving</span><span>Installable</span>
+            </div>
+            <div class="creation-actions">
+              <small>Desktop and mobile</small>
+              <a class="launch-link" href="../games/lakeshore-exit/" target="_blank" rel="noopener noreferrer">Play Now <span aria-hidden="true">&nearr;</span></a>
+            </div>
+          </div>
+        </article>
+
+        <article class="creation-card scroll-reveal">
+          <a class="creation-image-link contain-art" href="https://jkh2.github.io/Primordial-Sim/" target="_blank" rel="noopener noreferrer" aria-label="Launch Primordial Sim">
+            <span class="creation-type">Artificial Life</span>
+            <img src="../assets/images/creations/primordial-sim.png" alt="Colorful emergent artificial organisms in Primordial Sim">
+          </a>
+          <div class="creation-body">
+            <div class="creation-index">CREATION / 04</div>
+            <h2>Primordial Sim</h2>
+            <p>A real-time WebGL ecosystem where organisms eat, hunt, flee, flock, reproduce, mutate, and split into species no one designed&mdash;with an AI Lab Partner able to observe and experiment with the living world.</p>
+            <div class="creation-tags">
+              <span>Artificial Life</span><span>Evolution</span><span>WebGL</span>
+            </div>
+            <div class="creation-actions">
+              <small>Single-file simulation</small>
+              <a class="launch-link" href="https://jkh2.github.io/Primordial-Sim/" target="_blank" rel="noopener noreferrer">Launch Simulation <span aria-hidden="true">&nearr;</span></a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </main>
+
+  <div class="divider"></div>
+
+  <section>
+    <div class="container">
+      <div class="living-collection scroll-reveal">
+        <div>
+          <span class="section-label">A Living Collection</span>
+          <h2>More is being built.</h2>
+          <p>This page will grow carefully. Future games, experiments, and practical tools will be added as they become ready to share, with the work itself&mdash;not volume&mdash;setting the pace.</p>
+        </div>
+        <div class="living-mark" aria-hidden="true"><span>&#9651;</span></div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-logo">Sentinel <span>AI Systems</span></div>
+      <div class="footer-copy">&copy; 2026 James Keith Harwood II &middot; Soli Deo Gloria</div>
+      <div class="footer-links">
+        <a href="index.html">Sentinel Home</a>
+        <a href="../contact.html">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/ambient-glyphs.js?v=3fde184"></script>
+  <script src="../js/main.js"></script>
+  <script>
+    const creationsToggle = document.querySelector('.nav-toggle');
+    if (creationsToggle) {
+      creationsToggle.addEventListener('click', () => {
+        creationsToggle.setAttribute('aria-expanded', document.querySelector('.nav-links').classList.contains('open') ? 'true' : 'false');
+      });
+    }
+  </script>
+
+  <div class="sentinel-credit">
+    <a href="index.html" aria-label="Sentinel AI Systems">
+      <span class="sentinel-credit-orbit"><img src="../assets/images/sentinel-ai-systems-brain-logo.png" alt="Sentinel AI Systems"></span>
+      <span class="sentinel-credit-label">Sentinel AI Systems</span>
+    </a>
+  </div>
+</body>
+</html>
