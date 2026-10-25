@@ -162,27 +162,46 @@
   let glowingGlyphs = [];
   let lastFrameAt = performance.now();
 
-  // Site-wide easter egg: a real glyph capture-and-click gets a quiet sound,
-  // every time it happens (not once-per-load — James's call, since each
-  // light-up is its own discovery, unlike the one-shot hero-seal greeting).
-  // Root-relative path so it resolves the same from any folder depth.
-  const swarmSound = new Audio('/assets/audio/backgroundsound.mp3?v=20261025');
+  // One shared clip for the glyph light-up and the hero-seal hover.
+  // The lock is set before play() so two triggers in the same moment cannot
+  // stack a second copy. After the clip ends, a quiet gap must pass before
+  // either trigger may start it again. A failed play() unlocks immediately
+  // so a rejected first attempt does not mute the page for good.
+  const SOUND_REPLAY_DELAY_MS = 15000;
+  const swarmSound = new Audio('/assets/audio/backgroundsound.mp3?v=20261025c');
   swarmSound.volume = 0.4;
   swarmSound.preload = 'auto';
+  let soundLocked = false;
+  let replayTimer = null;
+
   function playSwarmSound() {
-    // Skip only while the previous play is still actually going, so a click
-    // mid-clip doesn't restack overlapping copies. This is NOT a permanent
-    // once-only lock — a bug in the prior version set a "played" flag before
-    // ever confirming play() succeeded, so one silently-failed first attempt
-    // (autoplay policy, a slow first load, anything) would look identical to
-    // "never works" for the rest of the page's life. Resetting currentTime
-    // instead means every real click gets a real, fresh attempt.
-    if (!swarmSound.paused) return;
-    swarmSound.currentTime = 0;
+    if (soundLocked) return;
+    soundLocked = true;
+    if (replayTimer !== null) {
+      clearTimeout(replayTimer);
+      replayTimer = null;
+    }
+    try {
+      swarmSound.currentTime = 0;
+    } catch (err) {
+      // Metadata may not be ready yet; play() still starts from the beginning.
+    }
     swarmSound.play().catch((err) => {
+      soundLocked = false;
       if (window.__glyphSoundDebug) console.warn('[ambient-glyphs] swarmSound.play() failed:', err);
     });
   }
+
+  swarmSound.addEventListener('ended', () => {
+    replayTimer = window.setTimeout(() => {
+      replayTimer = null;
+      soundLocked = false;
+    }, SOUND_REPLAY_DELAY_MS);
+  });
+  swarmSound.addEventListener('error', () => {
+    soundLocked = false;
+  });
+  window.playSentinelChime = playSwarmSound;
 
   function clamp(value, min, max) {
     return Math.min(max, Math.max(min, value));
