@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sentinel Table</title>
+  <link rel="stylesheet" href="table.css">
+</head>
+<body>
+  <main id="door" class="door">
+    <svg class="mark" viewBox="0 0 92 92" aria-hidden="true">
+      <circle cx="46" cy="46" r="44" fill="none" stroke="#d4b483" stroke-width="1"/>
+      <text x="46" y="62" text-anchor="middle" font-size="48" fill="#d4b483" font-family="Georgia, serif">ב</text>
+    </svg>
+    <h1>Sentinel Table</h1>
+    <p>Invitation only.</p>
+    <form id="key-form">
+      <label class="meta" for="key">Pass key</label>
+      <input id="key" name="key" type="password" autocomplete="current-password" required>
+      <button class="primary" type="submit">Continue</button>
+      <p id="door-note" class="note" role="status"></p>
+    </form>
+  </main>
+
+  <section id="hold" class="hold" hidden>
+    <h1>Sentinel Table</h1>
+    <p id="hold-text">Invitation only.</p>
+    <button id="hold-out" class="ghost" type="button">Sign out</button>
+  </section>
+
+  <section id="room" class="room" hidden>
+    <div id="seats" class="seats"></div>
+    <div id="transcript" class="transcript"></div>
+    <form id="composer" class="composer">
+      <textarea id="body" maxlength="2000" placeholder="Speak as yourself" required></textarea>
+      <button class="primary" type="submit">Send</button>
+    </form>
+    <section id="host" class="host" hidden>
+      <h2>Host</h2>
+      <div class="row">
+        <input id="invite-email" type="email" placeholder="Guest email">
+        <button id="invite-btn" class="ghost" type="button">Invite</button>
+        <button id="lock-btn" class="ghost" type="button">Lock room</button>
+        <button id="sign-out" class="ghost" type="button">Sign out</button>
+      </div>
+      <div id="invites" class="invites"></div>
+      <form id="key-change" class="row">
+        <input id="new-key" type="password" minlength="10" placeholder="New pass key" autocomplete="new-password">
+        <button class="ghost" type="submit">Change pass key</button>
+      </form>
+    </section>
+  </section>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <script src="table.js"></script>
+</body>
+</html>
