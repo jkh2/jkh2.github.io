@@ -166,7 +166,7 @@
   // every time it happens (not once-per-load — James's call, since each
   // light-up is its own discovery, unlike the one-shot hero-seal greeting).
   // Root-relative path so it resolves the same from any folder depth.
-  const swarmSound = new Audio('/assets/audio/sound1b.mp3');
+  const swarmSound = new Audio('/assets/audio/backgroundsound.mp3?v=20261025');
   swarmSound.volume = 0.4;
   swarmSound.preload = 'auto';
   function playSwarmSound() {
