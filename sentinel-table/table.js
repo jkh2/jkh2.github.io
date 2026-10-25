@@ -19,9 +19,42 @@
   var sending = false;
 
   function show(which) {
-    door.hidden = which !== "door";
     hold.hidden = which !== "hold";
-    room.hidden = which !== "room";
+    if (which === "door") {
+      door.hidden = false;
+      door.classList.remove("accepted", "opening");
+      room.classList.remove("shown");
+      room.hidden = true;
+      return;
+    }
+    if (which === "hold") {
+      door.hidden = true;
+      room.hidden = true;
+      return;
+    }
+    room.hidden = false;
+  }
+
+  function wait(ms) {
+    return new Promise(function (resolve) {
+      window.setTimeout(resolve, ms);
+    });
+  }
+
+  async function openDoor(prepare) {
+    door.classList.add("accepted");
+    await wait(1200);
+    if (prepare) await prepare();
+    room.hidden = false;
+    await new Promise(function (resolve) {
+      window.requestAnimationFrame(function () {
+        room.classList.add("shown");
+        door.classList.add("opening");
+        resolve();
+      });
+    });
+    await wait(920);
+    door.hidden = true;
   }
 
   function say(el, text) {
@@ -68,7 +101,20 @@
     if (!value) return;
     var db = client();
     if (!db) {
-      say(doorNote, "The table is not connected yet.");
+      openDoor(function () {
+        seatsEl.textContent = "";
+        transcript.textContent = "";
+        var note = document.createElement("p");
+        note.className = "meta";
+        note.textContent = "The table is not connected yet.";
+        transcript.appendChild(note);
+        composer.hidden = false;
+        bodyInput.disabled = true;
+        bodyInput.required = false;
+        bodyInput.placeholder = "The table is not connected yet.";
+        composer.querySelector("button").disabled = true;
+        hostEl.hidden = true;
+      });
       return;
     }
     rememberKey(value);
@@ -265,6 +311,7 @@
       show("door");
       return;
     }
+    var acceptedNow = false;
     var key = takeKey();
     if (key) {
       var checked = await db.rpc("check_passkey", { candidate: key });
@@ -278,6 +325,7 @@
         say(doorNote, "Not accepted.");
         return;
       }
+      acceptedNow = true;
     }
     var who = await db.rpc("whoami");
     if (who.error) {
@@ -300,8 +348,14 @@
       return;
     }
     me = who.data;
-    show("room");
-    await loadRoom();
+    if (acceptedNow) {
+      await openDoor(function () { return loadRoom(); });
+    } else {
+      show("room");
+      room.classList.add("shown");
+      door.hidden = true;
+      await loadRoom();
+    }
     watch();
   }
 

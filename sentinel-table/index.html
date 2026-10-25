@@ -8,12 +8,12 @@
 </head>
 <body>
   <main id="door" class="door">
-    <svg class="mark" viewBox="0 0 92 92" aria-hidden="true">
-      <circle cx="46" cy="46" r="44" fill="none" stroke="#d4b483" stroke-width="1"/>
-      <text x="46" y="62" text-anchor="middle" font-size="48" fill="#d4b483" font-family="Georgia, serif">ב</text>
-    </svg>
+    <div class="mark" aria-hidden="true">
+      <img class="closed" src="mark-closed.jpg" alt="">
+      <img class="open" src="mark-open.png" alt="">
+    </div>
     <h1>Sentinel Table</h1>
-    <p>Invitation only.</p>
+    <p class="lede">Invitation only.</p>
     <form id="key-form">
       <label class="meta" for="key">Pass key</label>
       <input id="key" name="key" type="password" autocomplete="current-password" required>

@@ -42,15 +42,41 @@ button {
 }
 
 .door {
-  background:
-    radial-gradient(ellipse at center, rgba(212, 180, 131, 0.08), transparent 55%),
-    var(--bg);
+  position: fixed;
+  inset: 0;
+  z-index: 3;
+  background: #000;
+  transition: opacity 0.9s ease, transform 0.9s ease;
+}
+
+.door.opening {
+  opacity: 0;
+  transform: scale(1.03);
+  pointer-events: none;
 }
 
 .mark {
-  width: 92px;
-  height: 92px;
-  margin-bottom: 28px;
+  position: relative;
+  width: min(440px, 86vw);
+  aspect-ratio: 1;
+  margin-bottom: 4px;
+}
+
+.mark img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.mark .open {
+  opacity: 0;
+  transition: opacity 1.15s ease;
+}
+
+.door.accepted .mark .open {
+  opacity: 1;
 }
 
 .door h1, .hold h1 {
@@ -60,6 +86,18 @@ button {
   text-transform: uppercase;
   font-size: 1.05rem;
   color: var(--gold);
+}
+
+.door h1, .door .lede, .door form {
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+
+.door.accepted h1,
+.door.accepted .lede,
+.door.accepted form {
+  opacity: 0;
+  transform: translateY(10px);
+  pointer-events: none;
 }
 
 .door p, .hold p {
@@ -122,6 +160,16 @@ button:disabled {
   align-items: stretch;
   justify-content: flex-start;
   padding: 0;
+  opacity: 0;
+}
+
+.room.shown {
+  animation: arrive 0.9s ease forwards;
+}
+
+@keyframes arrive {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 .seats {
