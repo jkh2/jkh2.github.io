@@ -168,7 +168,7 @@
   // still going, or during that gap. A failed play() unlocks immediately.
   const SOUND_REPLAY_DELAY_MS = 15000;
   const swarmSound = new Audio('/assets/audio/backgroundsound.mp3?v=20261025d');
-  const logoSound = new Audio('/assets/audio/logoaudio.mp3?v=20261025d');
+  const logoSound = new Audio('/assets/audio/logoaudio.mp3?v=20261025e');
   swarmSound.volume = 0.4;
   logoSound.volume = 0.4;
   swarmSound.preload = 'auto';
