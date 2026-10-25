@@ -600,7 +600,7 @@
     </div>
   </footer>
 
-  <script src="../js/ambient-glyphs.js?v=20261025c"></script>
+  <script src="../js/ambient-glyphs.js?v=20261025d"></script>
   <script>
     const toggle = document.querySelector('.nav-toggle');
     const navLinks = document.querySelector('.nav-links');
@@ -627,12 +627,13 @@
       sasLogo.addEventListener('touchcancel', () => sasLogo.classList.remove('touch-active'));
     }
 
-    // Hero seal uses the same player as the glyph light-up, so a hover and a
-    // click cannot start two copies of the clip.
+    // Hero seal plays its own short clip, once per page load. If the glyph
+    // sound is already playing, this hover does not stack on it and does not
+    // use up the one play — leaving and re-entering the seal can still hear it.
     const sasSealBlock = document.querySelector('.sas-seal-block');
     if (sasSealBlock) {
       sasSealBlock.addEventListener('mouseenter', () => {
-        if (typeof window.playSentinelChime === 'function') window.playSentinelChime();
+        if (typeof window.playLogoChime === 'function') window.playLogoChime();
       });
     }
   </script>

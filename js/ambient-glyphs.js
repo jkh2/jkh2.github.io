@@ -162,46 +162,90 @@
   let glowingGlyphs = [];
   let lastFrameAt = performance.now();
 
-  // One shared clip for the glyph light-up and the hero-seal hover.
-  // The lock is set before play() so two triggers in the same moment cannot
-  // stack a second copy. After the clip ends, a quiet gap must pass before
-  // either trigger may start it again. A failed play() unlocks immediately
-  // so a rejected first attempt does not mute the page for good.
+  // Two clips, one lock. The glyph light-up plays the longer sound and may
+  // play again after it ends and a quiet gap passes. The hero seal plays the
+  // short sound once per page load. Neither may start while the other is
+  // still going, or during that gap. A failed play() unlocks immediately.
   const SOUND_REPLAY_DELAY_MS = 15000;
-  const swarmSound = new Audio('/assets/audio/backgroundsound.mp3?v=20261025c');
+  const swarmSound = new Audio('/assets/audio/backgroundsound.mp3?v=20261025d');
+  const logoSound = new Audio('/assets/audio/logoaudio.mp3?v=20261025d');
   swarmSound.volume = 0.4;
+  logoSound.volume = 0.4;
   swarmSound.preload = 'auto';
+  logoSound.preload = 'auto';
   let soundLocked = false;
   let replayTimer = null;
+  let logoPlayed = false;
+  let activeSound = null;
 
-  function playSwarmSound() {
-    if (soundLocked) return;
-    soundLocked = true;
+  function releaseSoundLock() {
     if (replayTimer !== null) {
       clearTimeout(replayTimer);
       replayTimer = null;
     }
+    soundLocked = false;
+    activeSound = null;
+  }
+
+  function armReplayDelay() {
+    if (replayTimer !== null) clearTimeout(replayTimer);
+    replayTimer = window.setTimeout(() => {
+      replayTimer = null;
+      soundLocked = false;
+      activeSound = null;
+    }, SOUND_REPLAY_DELAY_MS);
+  }
+
+  function playSwarmSound() {
+    if (soundLocked) return;
+    soundLocked = true;
+    activeSound = swarmSound;
     try {
       swarmSound.currentTime = 0;
     } catch (err) {
       // Metadata may not be ready yet; play() still starts from the beginning.
     }
     swarmSound.play().catch((err) => {
-      soundLocked = false;
+      if (activeSound === swarmSound) releaseSoundLock();
       if (window.__glyphSoundDebug) console.warn('[ambient-glyphs] swarmSound.play() failed:', err);
     });
   }
 
+  function playLogoChime() {
+    if (logoPlayed || soundLocked) return;
+    logoPlayed = true;
+    soundLocked = true;
+    activeSound = logoSound;
+    try {
+      logoSound.currentTime = 0;
+    } catch (err) {
+      // Metadata may not be ready yet; play() still starts from the beginning.
+    }
+    logoSound.play().catch((err) => {
+      if (activeSound === logoSound) {
+        logoPlayed = false;
+        releaseSoundLock();
+      }
+      if (window.__glyphSoundDebug) console.warn('[ambient-glyphs] logoSound.play() failed:', err);
+    });
+  }
+
   swarmSound.addEventListener('ended', () => {
-    replayTimer = window.setTimeout(() => {
-      replayTimer = null;
-      soundLocked = false;
-    }, SOUND_REPLAY_DELAY_MS);
+    if (activeSound === swarmSound) armReplayDelay();
+  });
+  logoSound.addEventListener('ended', () => {
+    if (activeSound === logoSound) armReplayDelay();
   });
   swarmSound.addEventListener('error', () => {
-    soundLocked = false;
+    if (activeSound === swarmSound) releaseSoundLock();
+  });
+  logoSound.addEventListener('error', () => {
+    if (activeSound !== logoSound) return;
+    logoPlayed = false;
+    releaseSoundLock();
   });
   window.playSentinelChime = playSwarmSound;
+  window.playLogoChime = playLogoChime;
 
   function clamp(value, min, max) {
     return Math.min(max, Math.max(min, value));
