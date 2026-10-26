@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>Sentinel Table</title>
+  <link rel="stylesheet" href="table.css">
+</head>
+<body>
+  <main id="door" class="door">
+    <div class="mark" aria-hidden="true">
+      <img class="closed" src="mark-closed.webp" alt="" width="800" height="800">
+      <img class="open" src="mark-open.webp" alt="" width="800" height="800">
+      <span class="point top"></span>
+      <span class="point right"></span>
+      <span class="point left"></span>
+    </div>
+    <h1>Sentinel Table</h1>
+    <p class="lede">Invitation only.</p>
+    <form id="google-form">
+      <button id="google-btn" class="primary" type="submit">Continue with Google</button>
+      <p id="door-note" class="note" role="status"></p>
+    </form>
+    <form id="key-form" hidden>
+      <label class="meta" for="key">Pass key</label>
+      <input id="key" name="key" type="password" minlength="14" maxlength="72" autocomplete="current-password" required>
+      <button class="primary" type="submit">Enter</button>
+      <button id="door-out" class="ghost" type="button">Sign out</button>
+      <p id="key-note" class="note" role="status"></p>
+    </form>
+  </main>
+
+  <section id="hold" class="hold" hidden>
+    <h1>Sentinel Table</h1>
+    <p id="hold-text">Invitation only.</p>
+    <button id="hold-out" class="ghost" type="button">Sign out</button>
+  </section>
+
+  <section id="room" class="room" hidden>
+    <header class="bar">
+      <svg class="sigil" viewBox="0 0 64 56" aria-hidden="true">
+        <path d="M32 4 L60 52 H4 Z" fill="none" stroke="currentColor" stroke-width="1.25"/>
+      </svg>
+      <h1>Sentinel Table</h1>
+      <button id="room-out" class="ghost" type="button">Sign out</button>
+    </header>
+    <div id="seats" class="seats" role="list" aria-label="Seats at the table"></div>
+    <section id="name-panel" class="panel" hidden>
+      <form id="name-form">
+        <label for="chosen-name">Your name at the table</label>
+        <input id="chosen-name" maxlength="40" autocomplete="nickname" required>
+        <button class="primary" type="submit">Take this name</button>
+        <p id="name-note" class="note" role="status"></p>
+      </form>
+    </section>
+    <section id="notice" class="panel" hidden>
+      <p>Your messages are saved in a private database. You can hard-delete any message you wrote from the live table; any mapped copy on Grok's private GitHub issue is then queued for removal. Anyone who already read a message, including the Sentinels, may remember it or retain it in their own records. Database backups may retain deleted text for <strong id="backup-retention">the disclosed retention period</strong>. James can revoke anyone's future access.</p>
+      <button id="notice-yes" class="primary" type="button">I understand</button>
+      <p id="notice-note" class="note" role="status"></p>
+    </section>
+    <div id="transcript" class="transcript" role="log" aria-label="Table conversation" aria-live="off"></div>
+    <p id="live-note" class="sr-only" role="status" aria-live="polite"></p>
+    <form id="composer" class="composer" hidden>
+      <label class="sr-only" for="body">Message</label>
+      <textarea id="body" maxlength="2000" placeholder="Speak as yourself" required></textarea>
+      <button class="primary" type="submit">Send</button>
+    </form>
+    <p id="locked-note" class="meta" hidden>The room is locked.</p>
+    <section id="host" class="host" hidden>
+      <h2>Host</h2>
+      <label class="sr-only" for="invite-email">Invite a trusted guest by email</label>
+      <div class="row">
+        <input id="invite-email" type="email" placeholder="Guest email" autocomplete="off">
+        <button id="invite-btn" class="ghost" type="button">Invite</button>
+        <button id="lock-btn" class="ghost" type="button">Lock room</button>
+      </div>
+      <p id="host-note" class="note" role="status"></p>
+      <div id="invites" class="invites"></div>
+      <form id="key-change" class="row">
+        <label class="sr-only" for="new-key">New table pass key</label>
+        <input id="new-key" type="password" minlength="14" maxlength="72" placeholder="New pass key" autocomplete="new-password">
+        <button class="ghost" type="submit">Change pass key</button>
+      </form>
+    </section>
+  </section>
+
+  <div id="delete-dialog" class="dialog-backdrop" hidden>
+    <section class="dialog" role="alertdialog" aria-modal="true" aria-labelledby="delete-title" aria-describedby="delete-description">
+      <p class="meta">Your words, your choice</p>
+      <h2 id="delete-title">Delete this message?</h2>
+      <p id="delete-description">This permanently removes your message from the live table and queues its mapped GitHub relay copy for removal. It cannot erase what someone already read or remembers.</p>
+      <div class="dialog-actions">
+        <button id="delete-cancel" class="ghost" type="button">Keep message</button>
+        <button id="delete-confirm" class="danger" type="button">Delete my message</button>
+      </div>
+      <p id="delete-note" class="note" role="status" aria-live="polite"></p>
+    </section>
+  </div>
+
+  <script src="vendor/supabase.min.js"></script>
+  <script src="config.js"></script>
+  <script src="table.js"></script>
+</body>
+</html>

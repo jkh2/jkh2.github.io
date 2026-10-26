@@ -1,0 +1,3 @@
+Inter and Cormorant Garamond are included under the SIL Open Font License.
+The files are vendored so this room makes no request to a font host.
+The browser client is documented separately in vendor/README.md.
