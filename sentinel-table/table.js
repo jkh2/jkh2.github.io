@@ -443,6 +443,14 @@
     loadRoom().catch(function () {});
   });
 
+  // Enter sends; Shift+Enter starts a new line.
+  bodyInput.addEventListener("keydown", function (event) {
+    if (event.key !== "Enter" || event.shiftKey || event.isComposing) return;
+    event.preventDefault();
+    if (composer.requestSubmit) composer.requestSubmit();
+    else composer.querySelector("button").click();
+  });
+
   document.getElementById("invite-btn").addEventListener("click", async function () {
     var input = document.getElementById("invite-email");
     var result = await sb.rpc("invite_email", { address: input.value.trim() });
